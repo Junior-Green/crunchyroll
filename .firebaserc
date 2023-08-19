@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "netflix-fe7c4": {
+      "hosting": {
+        "netflix": [
+          "netflix-fe7c4"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "netflix-fe7c4"
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "hosting": [
+    {
+      "target": "netflix",
+      "source": ".",
+      "frameworksBackend": {}
+    }
+  ]
+}
