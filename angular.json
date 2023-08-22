@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "netflix": {
+    "crunchyroll": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -12,12 +12,12 @@
       },
       "root": "",
       "sourceRoot": "src",
-      "prefix": "ntfx",
+      "prefix": "cr",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/netflix",
+            "outputPath": "dist/crunchyroll",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": [
@@ -71,10 +71,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "netflix:build:production"
+              "browserTarget": "crunchyroll:build:production"
             },
             "development": {
-              "browserTarget": "netflix:build:development"
+              "browserTarget": "crunchyroll:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -82,7 +82,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "netflix:build"
+            "browserTarget": "crunchyroll:build"
           }
         },
         "test": {
@@ -108,7 +108,7 @@
           "builder": "@angular/fire:deploy",
           "options": {
             "version": 2,
-            "browserTarget": "netflix:build:production"
+            "browserTarget": "crunchyroll:build:production"
           }
         }
       }
