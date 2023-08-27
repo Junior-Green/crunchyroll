@@ -1,18 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { authGuard } from './core/guards/auth.guard';
+import { HomeComponent } from './features/landing/pages/home/home.component';
+import { NoPageFoundComponent } from './features/error/pages/no-page-found/no-page-found.component';
 
 const routes: Routes = [
-  {
-    path: "",
-    pathMatch: "full",
-    loadChildren: () => import('./features/landing/landing.module').then(m => m.LandingModule),
-    canActivate: [authGuard]
-  },
-  {
-    path: 'login',
-    loadChildren: () => import('./features/login/login.module').then(m => m.LoginModule)
-  }
+  { path: '', component: HomeComponent },
+  { path: '**', component: NoPageFoundComponent },
 ];
 
 @NgModule({

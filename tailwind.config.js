@@ -27,11 +27,8 @@ module.exports = {
         },
       }),
       colors: {
-        netflix : {
-          red: "#E50914",
-          black: "#000000",
-          white: "#221F1F",
-          gray: "#221F1F"
+        crunchyroll : {
+          orange: "#F47521"
 
         }
       }

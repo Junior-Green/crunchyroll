@@ -1,0 +1,34 @@
+$logo-size: 135px;
+$logo-color: #F47521;
+
+$crown-color: #FFD700;
+$crown-size: 25px;
+
+.horizontal-logo {
+    font-size: $logo-size;
+    height: auto;
+    width: $logo-size ;
+    color: $logo-color;
+
+}
+
+:hover.button mat-icon {
+    color: white;
+}
+
+.avatar {
+    border-radius: 100%;
+}
+
+.crown {
+    font-size: $crown-size;
+    height: auto;
+    width: $crown-size ;
+    color: $crown-color;
+
+}
+
+.dropdown-menu {
+    background-color: rgb(24 24 27);
+    border-radius: 0%;
+}
