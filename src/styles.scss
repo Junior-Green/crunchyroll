@@ -1,5 +1,11 @@
 @use '@angular/material' as mat;
 
+/* Importing Bootstrap SCSS file. */
+@import "./node_modules/bootstrap/scss/bootstrap";
+
+/* Importing Datepicker SCSS file. */
+@import "node_modules/ngx-bootstrap/datepicker/bs-datepicker";
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -36,16 +42,11 @@ $netflix-theme: mat.define-light-theme((color: (primary: $netflix-primary,
 
 /* You can add global styles to this file, and also import other style files */
 
-/* Importing Bootstrap SCSS file. */
-@import "./node_modules/bootstrap/scss/bootstrap";
-
-/* Importing Datepicker SCSS file. */
-@import "node_modules/ngx-bootstrap/datepicker/bs-datepicker";
-
 html,
 body {
   height: 100%;
   background-color: black;
+  overflow-x: hidden;
 }
 
 body {
@@ -54,6 +55,8 @@ body {
 }
 
 ::selection {
-  background-color: gray; /* Change this to your desired selection background color */
-  color: #F47521; /* Change the text color for better contrast if needed */
+  background-color: rgb(39 39 42);
+  /* Change this to your desired selection background color */
+  color: #F47521;
+  /* Change the text color for better contrast if needed */
 }

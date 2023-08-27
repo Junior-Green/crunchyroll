@@ -3,7 +3,6 @@ import { MatIconRegistry } from '@angular/material/icon';
 import { DomSanitizer } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { FirebaseService } from '../../services/firebase.service';
-import { Subscription } from 'rxjs';
 import { BsDropdownConfig } from 'ngx-bootstrap/dropdown';
 
 @Component({
@@ -16,6 +15,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
   loggedIn: boolean = false
   isPremium: boolean = false
   menuDropdownShowing: boolean = false
+  newsCategories: string[] = []
+  genres: string[] = []
   private unsubscribe
 
   constructor(private matIconRegistry: MatIconRegistry, private domSanitizer: DomSanitizer, private router: Router, private firebase: FirebaseService) {
