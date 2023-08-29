@@ -1,0 +1,66 @@
+<div dropdown (onShown)="menuDropdownHandler('onShown')" (onHidden)="menuDropdownHandler('onHidden')"
+    class="w-full h-full" [insideClick]="true">
+    <div dropdownToggle [ngClass]="{'bg-zinc-900' : menuDropdownShowing}"
+        class="h-full flex items-center justify-center py-2 px-[1.25rem] hover:bg-zinc-900 transition-colors hover:cursor-pointer button">
+        <mat-icon class="text-zinc-300 scale-[1.20] transition-colors">menu</mat-icon>
+    </div>
+    <ul *dropdownMenu class="dropdown-menu main-dropdown" role="menu" aria-labelledby="button-basic">
+        <h1 class="text-xs font-[550] text-gray-500 pl-4 mb-2">BROWSE</h1>
+        <li role="menuitem"><a class="dropdown-item">Alphabetical</a></li>
+        <li role="menuitem" dropdown triggers="mouseclick" placement="right" container="body"
+            class="hover:cursor-pointer">
+            <a dropdownToggle class="dropdown-item dropdown-toggle" (click)="false">Genres
+                <mat-icon class="ml-2">expand_more</mat-icon></a>
+            <ul *dropdownMenu class="dropdown-menu" role="menu">
+                <li role="menuitem"><a class="dropdown-item">Action</a>
+                </li>
+                <li role="menuitem"><a class="dropdown-item">Adventure</a>
+                </li>
+                <li role="menuitem"><a class="dropdown-item">Comedy</a>
+                </li>
+                <li role="menuitem"><a class="dropdown-item">Drama</a>
+                </li>
+                <li role="menuitem"><a class="dropdown-item">Fanstasy</a>
+                </li>
+                <li role="menuitem"><a class="dropdown-item">Music</a>
+                </li>
+                <li role="menuitem"><a class="dropdown-item">Romance</a>
+                </li>
+                <li role="menuitem"><a class="dropdown-item">Sci-Fi</a>
+                </li>
+                <li role="menuitem"><a class="dropdown-item">Seinen</a>
+                </li>
+                <li role="menuitem"><a class="dropdown-item">Shojo</a>
+                </li>
+                <li role="menuitem"><a class="dropdown-item">Shonen</a>
+                </li>
+                <li role="menuitem"><a class="dropdown-item">Sports</a>
+                </li>
+            </ul>
+        </li>
+        <li role="menuitem"><a class="dropdown-item">Music Videos & Concerts</a></li>
+        <li role="menuitem"><a class="dropdown-item">New</a></li>
+        <li role="menuitem"><a class="dropdown-item">Popular</a></li>
+        <li role="menuitem"><a class="dropdown-item">Release Calendar</a></li>
+        <li role="menuitem"><a class="dropdown-item">Simulcast Season</a></li>
+        <li class="divider dropdown-divider"></li>
+        <li role="menuitem"><a class="dropdown-item">Games</a></li>
+        <li role="menuitem"><a class="dropdown-item">Manga</a></li>
+        <li role="menuitem" dropdown triggers="mouseclick" placement="right" container="body">
+            <a dropdownToggle class="dropdown-item dropdown-toggle" (click)="false">News
+                <mat-icon class="ml-2">expand_more</mat-icon></a>
+            <ul *dropdownMenu class="dropdown-menu" role="menu">
+                <li role="menuitem"><a class="dropdown-item ">All News</a>
+                </li>
+                <li role="menuitem"><a class="dropdown-item">Anime
+                        Awards</a></li>
+                <li role="menuitem"><a class="dropdown-item">Crunchyroll
+                        Expo</a></li>
+                <li role="menuitem"><a class="dropdown-item">Anime Movie
+                        Night</a></li>
+            </ul>
+        </li>
+        <li role="menuitem"><a class="dropdown-item">Store</a></li>
+
+    </ul>
+</div>

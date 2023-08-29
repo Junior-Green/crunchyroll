@@ -1,95 +1,23 @@
-<ng-template #premiumTooltipTemplate>
-    <div class="w-full h-full px-3 flex flex-col items-center justify-center py-4">
-        <div class="flex flex-row justify-center items-center mb-2">
-            <mat-icon [svgIcon]="'cr-crown'" class="h-auto mr-2 tooltip-crown"></mat-icon>
-            <span class="text-lg font-semibold">14-Day Free Trial</span>
-        </div>
-        <p class="font-semibold">Premium access includes unlimited anime, no ads, and new episodes shortly after they
-            air in Japan. Try it now!</p>
-    </div>
-</ng-template>
-
 <div class="w-full h-[4rem] flex flex-row bg-zinc-800 fixed top-0">
-    <div dropdown (onShown)="menuDropdownHandler('onShown')" (onHidden)="menuDropdownHandler('onHidden')"
-        [insideClick]="true">
-        <div dropdownToggle [ngClass]="{'bg-zinc-900' : menuDropdownShowing}"
-            class="h-full flex items-center justify-center py-2 px-[1.25rem] hover:bg-zinc-900 transition-colors hover:cursor-pointer button">
-            <mat-icon class="text-zinc-300 scale-[1.20] transition-colors">menu</mat-icon>
-        </div>
-        <ul *dropdownMenu class="dropdown-menu main-dropdown" role="menu" aria-labelledby="button-basic">
-            <h1 class="text-xs font-[550] text-gray-500 pl-4 mb-2">BROWSE</h1>
-            <li role="menuitem"><a class="dropdown-item" href="#">Popular</a></li>
-            <li role="menuitem"><a class="dropdown-item" href="#">New</a></li>
-            <li role="menuitem"><a class="dropdown-item" href="#">Alphabetical</a></li>
-            <li role="menuitem"><a class="dropdown-item" href="#">Simulcast Season</a></li>
-            <li role="menuitem"><a class="dropdown-item" href="#">Release Calendar</a></li>
-            <li role="menuitem"><a class="dropdown-item" href="#">Music Videos & Concerts</a></li>
-            <li role="menuitem" dropdown triggers="mouseclick" placement="right" container="body" class="hover:cursor-pointer">
-                <a dropdownToggle class="dropdown-item dropdown-toggle" (click)="false">Genres
-                    <mat-icon class="ml-2">expand_more</mat-icon></a>
-                <ul *dropdownMenu class="dropdown-menu" role="menu"> sfd
-                    <!-- TODO: add options to DOM using *ngFor -->
-                    <li role="menuitem"><a class="dropdown-item" routerLink="." fragment="nested-dropdowns">Action</a>
-                    </li>
-                    <li role="menuitem"><a class="dropdown-item" routerLink="." fragment="nested-dropdowns">Adve</a>
-                    </li>
-                    <li role="menuitem"><a class="dropdown-item" routerLink="." fragment="nested-dropdowns">Action2</a>
-                    </li>
-                </ul>
-            </li>
-            <li class="divider dropdown-divider"></li>
-            <li role="menuitem"><a class="dropdown-item" href="#">Manga</a></li>
-            <li role="menuitem"><a class="dropdown-item" href="#">Games</a></li>
-            <li role="menuitem"><a class="dropdown-item" href="#">Store</a></li>
-            <li role="menuitem" dropdown triggers="mouseclick" placement="right" container="body">
-                <a dropdownToggle class="dropdown-item dropdown-toggle" (click)="false">News
-                    <mat-icon class="ml-2">expand_more</mat-icon></a>
-                <ul *dropdownMenu class="dropdown-menu" role="menu">
-                      <!-- TODO: add options to DOM using *ngFor -->
-                    <li role="menuitem"><a class="dropdown-item" routerLink="." fragment="nested-dropdowns">Action</a>
-                    </li>
-                    <li role="menuitem"><a class="dropdown-item" routerLink="." fragment="nested-dropdowns">Action1</a>
-                    </li>
-                    <li role="menuitem"><a class="dropdown-item" routerLink="." fragment="nested-dropdowns">Action2</a>
-                    </li>
-                </ul>
-            </li>
-        </ul>
-    </div>
+    <cr-menu-dropdown></cr-menu-dropdown>
     <div class="flex flex-row justify-between w-full h-full">
-        <div class="h-full flex items-center justify-center ml-5 hover:cursor-pointer w-auto button"
-            (click)="navigateTo('')">
+        <a class="h-full flex items-center justify-center ml-5 hover:cursor-pointer w-auto button" routerLink="/">
             <mat-icon [svgIcon]="'cr-logo'" class="horizontal-logo transition-colors"></mat-icon>
-        </div>
+        </a>
         <div class="flex flex-row h-full">
-            <div *ngIf="!isPremium"
-                class="hidden sm:flex flex-row justify-center items-center py-2 px-[1.25rem] hover:bg-zinc-900 transition-colors hover:cursor-pointer"
-                [tooltip]="premiumTooltipTemplate" placement="bottom" containerClass="free-trial-tooltip">
-                <mat-icon [svgIcon]="'cr-crown'" class="crown transition-colors"></mat-icon>
-                <div class="flex-col ml-2 hidden md:flex">
-                    <span style="color: #FFD700;" class="text-xs">TRY FREE</span>
-                    <span class="text-white text-xs">PREMIUM</span>
-                </div>
-            </div>
-            <div
+            <cr-free-trial-prompt *ngIf="!isPremium"></cr-free-trial-prompt>
+            <a routerLink="/search"
                 class="h-full flex items-center justify-center py-2 px-[1.25rem] hover:bg-zinc-900 transition-colors hover:cursor-pointer button">
                 <mat-icon class="text-zinc-300 scale-[1.20] transition-colors">search</mat-icon>
-            </div>
-            <div
+            </a>
+            <a routerLink="/watchlist"
                 class="h-full items-center justify-center py-2 px-[1.25rem] hover:bg-zinc-900 transition-colors hover:cursor-pointer button md:flex hidden">
                 <mat-icon class="text-zinc-300 scale-[1.20] transition-colors">bookmark_border</mat-icon>
-            </div>
-            <div [ngSwitch]="loggedIn">
-                <div *ngSwitchCase="true"
-                    class="h-full flex items-center justify-center py-2 px-[1.25rem] hover:bg-zinc-900 transition-colors hover:cursor-pointer button">
-                    <img src="/assets/images/avatar.jpeg" width="35" height="35" class="avatar" alt="profile picture" />
-                    <mat-icon class="text-zinc-300 transition-colors ml-2">arrow_drop_down</mat-icon>
-                </div>
-                <div *ngSwitchCase="false"
-                    class="h-full flex items-center justify-center py-2 px-[1.25rem] hover:bg-zinc-900 transition-colors hover:cursor-pointer button">
-                    <mat-icon class="text-zinc-300 scale-[1.20] transition-colors">perm_identity</mat-icon>
-                </div>
-            </div>
+            </a>
+            <ng-container [ngSwitch]="authState | async">
+                <cr-logged-in-dropdown *ngSwitchCase="true"></cr-logged-in-dropdown>
+                <cr-logged-out-dropdown *ngSwitchCase="false"></cr-logged-out-dropdown>
+            </ng-container>
         </div>
     </div>
 </div>

@@ -1,0 +1,19 @@
+<ng-template #premiumTooltipTemplate>
+    <div class="w-full h-full px-3 flex flex-col items-center justify-center py-4">
+        <div class="flex flex-row justify-center items-center mb-2">
+            <mat-icon [svgIcon]="'cr-crown'" class="h-auto mr-2 tooltip-crown"></mat-icon>
+            <span class="text-lg font-semibold">14-Day Free Trial</span>
+        </div>
+        <p class="font-semibold">{{getTooltipDescription() | async}}</p>
+    </div>
+</ng-template>
+
+<a routerLink="/plans"
+    class="hidden sm:flex flex-row justify-center items-center py-2 px-[1.25rem] hover:bg-zinc-900 transition-colors hover:cursor-pointer h-full"
+    [tooltip]="premiumTooltipTemplate" placement="bottom" containerClass="free-trial-tooltip">
+    <mat-icon [svgIcon]="'cr-crown'" class="crown transition-colors"></mat-icon>
+    <div class="flex-col ml-2 hidden md:flex ">
+        <span style="color: #FFD700;" class="text-xs">{{getButtonLabel() | async}}</span>
+        <span class="text-white text-xs">PREMIUM</span>
+    </div>
+</a>

@@ -1,0 +1,30 @@
+<div dropdown (onShown)="menuDropdownHandler('onShown')" (onHidden)="menuDropdownHandler('onHidden')"
+    class="w-full h-full" [insideClick]="true" container="body" placement="bottom right">
+    <div dropdownToggle [ngClass]="{'bg-zinc-900' : menuDropdownShowing}"
+        class="h-full flex items-center justify-center py-2 px-[1.25rem] hover:bg-zinc-900 transition-colors hover:cursor-pointer button">
+        <mat-icon class="text-zinc-300 scale-[1.20] transition-colors">perm_identity</mat-icon>
+    </div>
+    <ul *dropdownMenu class="dropdown-menu main-dropdown dropdown-menu-right" role="menu"
+        aria-labelledby="button-basic">
+        <li role="menuitem">
+            <a class="dropdown-item pl-5 py-3" routerLink="/signup">
+                <span class="block text-white font-light">Create Account</span>
+                <span class="text-gray-400 text-sm">Join for free or go Premium.</span>
+            </a>
+        </li>
+        <li role="menuitem">
+            <a class="dropdown-item pl-5 py-3" routerLink="/login">
+                <span class="block text-white font-light">Log In</span>
+                <span class="text-gray-400 text-sm">Already joined Crunchyroll? Welcome back.</span>
+            </a>
+        </li>
+        <li role="menuitem" class="mx-3 mt-3">
+            <a routerLink="/plans">
+                <div class="w-full h-full flex flex-row items-center justify-center button-container py-2">
+                    <mat-icon [svgIcon]="'cr-crown'" class="crown mr-2"></mat-icon>
+                    <span class="text-black font-medium text-[0.9rem]">14-DAY FREE TRIAL</span>
+                </div>
+            </a>
+        </li>
+    </ul>
+</div>

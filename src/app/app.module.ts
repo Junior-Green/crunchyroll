@@ -10,6 +10,7 @@ import * as firebase from 'firebase/app';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { ErrorModule } from './features/error/error.module';
+import { AlertModule } from 'ngx-bootstrap/alert';
 
 export const app = firebase.initializeApp(environment.firebaseConfig);
 
@@ -23,7 +24,7 @@ export const app = firebase.initializeApp(environment.firebaseConfig);
     BrowserAnimationsModule,
     ErrorModule,
     CoreModule,
-    LandingModule,
+    LandingModule
   ],
   bootstrap: [AppComponent],
 })

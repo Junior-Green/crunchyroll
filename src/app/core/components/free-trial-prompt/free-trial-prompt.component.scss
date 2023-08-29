@@ -1,0 +1,32 @@
+$crown-color: #fab818;;
+$crown-size: 25px;
+
+$tooltip-crown-color: white;
+$tooltip-crown-size: 20px;
+
+.crown {
+    font-size: $crown-size;
+    height: auto;
+    width: $crown-size ;
+    color: $crown-color;
+
+}
+
+::ng-deep .free-trial-tooltip {
+    margin-top: 15px;
+}
+
+::ng-deep .free-trial-tooltip .tooltip-inner {
+    max-width: 375px;
+    min-width: auto;
+    max-height: auto;
+    min-height: auto;
+    border-radius: 0%;
+}
+
+.tooltip-crown {
+    font-size: $tooltip-crown-size;
+    height: auto;
+    width: $tooltip-crown-size ;
+    color: $tooltip-crown-color;
+}
