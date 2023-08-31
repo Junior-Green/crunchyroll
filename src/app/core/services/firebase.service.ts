@@ -21,7 +21,7 @@ export class FirebaseService implements OnDestroy {
   constructor(private router: Router) {
     this.authStateStream = new Observable<boolean>((subscriber) => {
       this.authStateSubscriber = subscriber
-      subscriber.next(this.auth.currentUser === null)
+      subscriber.next(this.auth.currentUser !== null)
     })
     this.unsubscribe = this.auth.onAuthStateChanged((user) => {
       this.authStateSubscriber?.next(user !== null)

@@ -1,0 +1,47 @@
+$logo-size: 158px;
+$logo-color: #A0A0A0;
+
+.sony-logo {
+    font-size: $logo-size;
+    height: auto;
+    width: $logo-size ;
+    color: $logo-color;
+}
+
+.dropdown-menu.main-dropdown {
+    min-width: 200px;
+    padding-top: 20px;
+
+}
+
+.dropdown-menu>li>a:hover {
+    background-image: none;
+    background-color: rgb(24 24 27);
+    color: white;
+}
+
+.dropdown-menu>li>a {
+    color: rgb(161 161 170)
+}
+
+.dropdown-item {
+    cursor: pointer;
+}
+
+.dropdown-menu {
+    background-color: rgb(39 39 42);
+
+    border-radius: 0%;
+}
+
+.button:hover span {
+    color: white;
+}
+
+.navbar>a:hover {
+    color: white;
+    cursor: pointer;
+    transition-property: color;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-duration: 150ms;
+}

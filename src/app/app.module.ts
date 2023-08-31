@@ -7,11 +7,8 @@ import { environment } from 'src/environments/environment';
 import { LandingModule } from './features/landing/landing.module';
 import { AppComponent } from './app.component';
 import * as firebase from 'firebase/app';
-import { TooltipModule } from 'ngx-bootstrap/tooltip';
-import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { ErrorModule } from './features/error/error.module';
-import { AlertModule } from 'ngx-bootstrap/alert';
-
+0
 export const app = firebase.initializeApp(environment.firebaseConfig);
 
 @NgModule({

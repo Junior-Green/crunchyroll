@@ -1,23 +1,21 @@
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule, Optional, SkipSelf } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { HeaderComponent } from './shells/header/header.component';
 import { SharedModule } from '../shared/shared.module';
-import { FooterComponent } from './shells/footer/footer.component';
 import { MenuDropdownComponent } from './components/menu-dropdown/menu-dropdown.component';
 import { LoggedOutDropdownComponent } from './components/logged-out-dropdown/logged-out-dropdown.component';
 import { LoggedInDropdownComponent } from './components/logged-in-dropdown/logged-in-dropdown.component';
 import { FreeTrialPromptComponent } from './components/free-trial-prompt/free-trial-prompt.component';
 import { RouterModule } from '@angular/router';
+import { NavBarComponent } from './shells/nav-bar/nav-bar.component';
 
 @NgModule({
   declarations: [
-    HeaderComponent,
-    FooterComponent,
     MenuDropdownComponent,
     LoggedOutDropdownComponent,
     LoggedInDropdownComponent,
-    FreeTrialPromptComponent
+    FreeTrialPromptComponent,
+    NavBarComponent
   ],
   imports: [
     CommonModule,
@@ -25,7 +23,7 @@ import { RouterModule } from '@angular/router';
     HttpClientModule,
     RouterModule
   ],
-  exports: [HeaderComponent, FooterComponent]
+  exports: [NavBarComponent]
 })
 export class CoreModule {
   constructor(@Optional() @SkipSelf() parentModule: CoreModule) {

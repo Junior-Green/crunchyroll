@@ -7,12 +7,12 @@ import { BsDropdownConfig } from 'ngx-bootstrap/dropdown';
 import { Observable } from 'rxjs';
 
 @Component({
-  selector: 'cr-header',
-  templateUrl: './header.component.html',
-  styleUrls: ['./header.component.scss'],
+  selector: 'cr-navbar',
+  templateUrl: './nav-bar.component.html',
+  styleUrls: ['./nav-bar.component.scss'],
   providers: [{ provide: BsDropdownConfig, useValue: { isAnimated: true, autoClose: true } }]
 })
-export class HeaderComponent implements OnInit {
+export class NavBarComponent implements OnInit {
   authState: Observable<boolean>
   isPremium: boolean = false
 

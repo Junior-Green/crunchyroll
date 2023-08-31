@@ -5,6 +5,7 @@ import { NoPageFoundComponent } from './features/error/pages/no-page-found/no-pa
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
+  { path: 'auth', loadChildren: () => import('./features/auth/auth.module').then((m) => m.AuthModule) },
   { path: '**', component: NoPageFoundComponent },
 ];
 

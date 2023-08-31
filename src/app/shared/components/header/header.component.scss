@@ -1,0 +1,14 @@
+$logo-size: 135px;
+$logo-color: #F47521;
+
+.horizontal-logo {
+    font-size: $logo-size;
+    height: auto;
+    width: $logo-size ;
+    color: $logo-color;
+    cursor: pointer;
+}
+
+.horizontal-logo:hover{
+    color: white;
+}
