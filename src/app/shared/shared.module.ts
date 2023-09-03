@@ -7,6 +7,10 @@ import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { MatInputModule } from '@angular/material/input'; // Import MatInputModule
+import { FormsModule } from '@angular/forms';
+import {MatCheckboxModule} from '@angular/material/checkbox';
+
 
 @NgModule({
   declarations: [
@@ -17,7 +21,7 @@ import { CommonModule } from '@angular/common';
     MatIconModule,
     RouterModule,
     BsDropdownModule,
-    CommonModule
+    CommonModule,
   ],
   exports: [
     MatIconModule,
@@ -26,6 +30,9 @@ import { CommonModule } from '@angular/common';
     FooterComponent,
     HeaderComponent,
     AlertModule,
+    MatInputModule,
+    FormsModule,
+    MatCheckboxModule
   ]
 })
 export class SharedModule { }

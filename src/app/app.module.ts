@@ -8,7 +8,7 @@ import { LandingModule } from './features/landing/landing.module';
 import { AppComponent } from './app.component';
 import * as firebase from 'firebase/app';
 import { ErrorModule } from './features/error/error.module';
-0
+
 export const app = firebase.initializeApp(environment.firebaseConfig);
 
 @NgModule({

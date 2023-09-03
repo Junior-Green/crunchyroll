@@ -1,0 +1,59 @@
+$logo-size: 12px;
+
+.mat-mdc-form-field-error-wrapper,
+.mat-mdc-form-field-hint-wrapper {
+    padding: 0 !important;
+}
+
+.mdc-text-field--filled {
+    background-color: transparent !important;
+    padding-left: 0 !important;
+}
+
+.mdc-text-field__input {
+    color: white !important;
+    font-size: 1.1rem !important;
+}
+
+.mdc-text-field--filled .mdc-text-field__input {
+    caret-color: white !important;
+}
+
+.checkbox-container:hover {
+    div {
+        border-color: white;
+    }
+
+    span {
+        color: white;
+    }
+}
+
+.mdc-text-field--filled:not(.mdc-text-field--disabled):not(.mdc-text-field--focused):hover .mdc-line-ripple::before {
+    border-bottom-color: rgb(161 161 170) !important;
+}
+
+.mdc-text-field--filled .mdc-line-ripple::before {
+    border-bottom-width: 2px !important;
+}
+
+
+.checkmark {
+    font-size: $logo-size;
+    height: auto;
+    width: $logo-size ;
+}
+
+.fade-in {
+    animation: fadeIn 250ms ease-in-out;
+}
+
+@keyframes fadeIn {
+    100% {
+        opacity: 1;
+    }
+
+    0% {
+        opacity: 0;
+    }
+}

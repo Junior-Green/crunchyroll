@@ -1,13 +1,13 @@
-<div class="w-full flex flex-col items-center justify-center">
-    <nav class="text-zinc-400 text-sm mb-3 navbar" *ngIf="showNav">
+<div class="flex flex-col items-center justify-center px-6 my-0 mx-auto max-w-6xl">
+    <nav class="text-zinc-400 text-sm mb-3 navbar flex flex-col md:flex-row items-center" *ngIf="showNav">
         <a>Terms of Use</a>
-        <a class="mx-3 border-x-[1px] border-x-zinc-700 px-3">Privacy Policy</a>
+        <a class="mx-3 md:border-x-[1px] border-x-0 md:border-x-zinc-700 px-3 my-2 sm:my-0">Privacy Policy</a>
         <a>Cookie Consent Tool</a>
     </nav>
-    <div class="border-t-[0.5px] w-full border-t-zinc-600 flex flex-row py-8 justify-between items-center">
-        <div>
+    <div class="border-t-[0.5px] border-t-zinc-600 flex flex-col md:flex-row py-8 justify-between items-center w-full">
+        <div class="flex flex-col md:flex-row items-center md:items-baseline">
             <mat-icon [svgIcon]="'cr-sony-logo'" class="sony-logo"></mat-icon>
-            <span class="border-l-zinc-600 text-zinc-400 border-l-[0.5px] text-sm pl-2 ml-2 ">{{"\u00A9 Crunchyroll,
+            <span class="border-l-zinc-600 text-zinc-400 border-l-0 md:border-l-[0.5px] text-sm pl-0 md:pl-2 ml-0 md:ml-3 mt-3 md:mt-0">{{"\u00A9 Crunchyroll,
                 LLC"}}</span>
         </div>
         <div dropdown (onShown)="menuDropdownHandler('onShown')" (onHidden)="menuDropdownHandler('onHidden')"
