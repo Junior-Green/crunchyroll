@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
-import { AlertModule } from 'ngx-bootstrap/alert';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { HeaderComponent } from './components/header/header.component';
@@ -10,12 +9,14 @@ import { CommonModule } from '@angular/common';
 import { MatInputModule } from '@angular/material/input'; // Import MatInputModule
 import { FormsModule } from '@angular/forms';
 import {MatCheckboxModule} from '@angular/material/checkbox';
-
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import { ErrorAlertComponent } from './components/error-alert/error-alert.component';
 
 @NgModule({
   declarations: [
     HeaderComponent,
-    FooterComponent
+    FooterComponent,
+    ErrorAlertComponent
   ],
   imports: [
     MatIconModule,
@@ -29,10 +30,11 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
     BsDropdownModule,
     FooterComponent,
     HeaderComponent,
-    AlertModule,
     MatInputModule,
     FormsModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    MatProgressSpinnerModule,
+    ErrorAlertComponent
   ]
 })
 export class SharedModule { }

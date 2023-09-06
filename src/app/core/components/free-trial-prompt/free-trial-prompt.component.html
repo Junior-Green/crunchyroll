@@ -4,7 +4,8 @@
             <mat-icon [svgIcon]="'cr-crown'" class="h-auto mr-2 tooltip-crown"></mat-icon>
             <span class="text-lg font-semibold">14-Day Free Trial</span>
         </div>
-        <p class="font-semibold">{{getTooltipDescription() | async}}</p>
+        <p class="font-semibold">{{isLoggedIn ? loggedInPremiumTooltipDescription : loggedOutPremiumTooltipDescription}}
+        </p>
     </div>
 </ng-template>
 
@@ -13,7 +14,7 @@
     [tooltip]="premiumTooltipTemplate" placement="bottom" containerClass="free-trial-tooltip">
     <mat-icon [svgIcon]="'cr-crown'" class="crown transition-colors"></mat-icon>
     <div class="flex-col ml-2 hidden md:flex ">
-        <span style="color: #FFD700;" class="text-xs">{{getButtonLabel() | async}}</span>
+        <span style="color: #FFD700;" class="text-xs">{{isLoggedIn ? loggedInButtonLabel : loggedOutButtonLabel}}</span>
         <span class="text-white text-xs">PREMIUM</span>
     </div>
 </a>

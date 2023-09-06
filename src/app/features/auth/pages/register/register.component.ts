@@ -1,7 +1,9 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { MatIconRegistry } from '@angular/material/icon';
 import { DomSanitizer, Title } from '@angular/platform-browser';
+import { Router } from '@angular/router';
 import { AuthFormModel } from 'src/app/core/models/auth-form.model';
+import { FirebaseService } from 'src/app/core/services/firebase.service';
 
 @Component({
   selector: 'cr-register',
@@ -12,8 +14,17 @@ import { AuthFormModel } from 'src/app/core/models/auth-form.model';
 export class RegisterComponent implements OnInit {
   checkboxState: boolean = false;
   showPassword: boolean = false;
+  loading = false;
+  showError: boolean = false;
+  errorMessage: string = ""
 
-  constructor(private titleService: Title, private matIconRegistry: MatIconRegistry, private domSanitizer: DomSanitizer) {
+  formData: AuthFormModel = {
+    email: '',
+    password: '',
+    subscribeToNewsletter: false
+  }
+
+  constructor(titleService: Title, private matIconRegistry: MatIconRegistry, private domSanitizer: DomSanitizer, private firebase: FirebaseService, private router: Router) {
     titleService.setTitle('Registration');
   }
 
@@ -24,14 +35,25 @@ export class RegisterComponent implements OnInit {
     );
   }
 
-  formData: AuthFormModel = {
-    email: '',
-    password: '',
-    subscribeToNewsletter: false
+  toggleAlert() {
+    this.showError = !this.showError
   }
 
   registerAccount() {
+    this.firebase.registerAccount(this.formData.email, this.formData.password).then(() => {
+      this.router.navigate(['/'])
+    }).catch((error) => {
+      this.errorMessage = error.message;
+      this.showError = true
+    }).finally(() => {
+      this.loading = false;
 
+      this.formData = {
+        email: '',
+        password: '',
+        subscribeToNewsletter: false
+      }
+    });
   }
 
   toggleShowPassword() {

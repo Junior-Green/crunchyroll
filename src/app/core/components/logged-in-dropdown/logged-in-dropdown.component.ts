@@ -11,7 +11,6 @@ import { FirebaseService } from '../../services/firebase.service';
 })
 export class LoggedInDropdownComponent implements OnInit {
   menuDropdownShowing: boolean = false;
-  error: boolean = false;
 
   constructor(private matIconRegistry: MatIconRegistry, private domSanitizer: DomSanitizer, private firebase: FirebaseService, private router: Router) { }
   ngOnInit() {
@@ -35,11 +34,6 @@ export class LoggedInDropdownComponent implements OnInit {
       this.router.navigate(['/login'])
     }).catch((err) => {
       console.log(err)
-      this.error = true
     })
-  }
-
-  handleAlertClose() {
-    this.error = false;
   }
 }
