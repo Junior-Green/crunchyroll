@@ -1,4 +1,6 @@
-<button
-    class="border-none bg-crunchyroll-orange text-black font-medium text-[15px] px-4 py-[10px] transition-colors hover:bg-orange-400 w-full"
-    [disabled]="disabled">{{label}}
+<button class="py-2 px-3 flex items-center justify-center transition-colors" [disabled]="disabled"
+    [ngClass]="buttonStyle === 'outline' ? 'border-[2px]' : ''"
+    [ngStyle]="{'background-color' : buttonStyle === 'fill' ? (isHovered ? hoverShade : backgroundColor) : '', 'border-color' : buttonStyle === 'outline' ? (isHovered ? hoverShade : backgroundColor) : '', 'width' : width ? width + 'px': 'auto', 'height' : height ? height + 'px' : 'auto'}"
+    (mouseenter)="isHovered = true" (mouseleave)="isHovered = false">
+    <span class="'text-sm font-medium" [ngStyle]="{'color' : labelColor}">{{label}}</span>
 </button>

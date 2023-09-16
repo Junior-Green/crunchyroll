@@ -42,7 +42,7 @@ export class RegisterComponent implements OnInit {
   registerAccount() {
     this.showError = false
     this.firebase.registerAccount(this.formData.email, this.formData.password).then((res) => {
-      res && this.router.navigate(['/'])
+      res && this.router.navigate(['../'])
     }).catch((error) => {
       this.errorMessage = error
       this.showError = true

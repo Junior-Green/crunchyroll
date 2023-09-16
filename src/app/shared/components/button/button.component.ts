@@ -1,4 +1,7 @@
-import { Component, Input } from '@angular/core';
+import { Component, ElementRef, Input, Renderer2 } from '@angular/core';
+import { MatIconRegistry } from '@angular/material/icon';
+import { DomSanitizer } from '@angular/platform-browser';
+import * as chroma from 'chroma-js';
 
 @Component({
   selector: 'cr-button',
@@ -8,5 +11,18 @@ import { Component, Input } from '@angular/core';
 export class ButtonComponent {
   @Input() label: string = "Click"
   @Input() disabled: boolean = false
+  @Input() backgroundColor: string = "#000000"
+  @Input() labelColor: string = "#FFFFFF"
+  @Input() buttonStyle: "fill" | "outline" = "fill"
+  @Input() width?: number
+  @Input() height?: number
+  hoverShade: string = "#000000";
+  isHovered: boolean = false;
+
+  constructor() { }
+
+  ngOnInit(): void {
+    this.hoverShade = chroma(this.backgroundColor).brighten().hex();
+  }
 }
 

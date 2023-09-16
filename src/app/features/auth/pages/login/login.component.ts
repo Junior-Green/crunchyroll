@@ -34,7 +34,7 @@ export class LoginComponent {
   login() {
     this.showError = false
     this.firebase.signIn(this.formData.email, this.formData.password).then(() => {
-      this.router.navigate(['/'])
+      this.router.navigate(['../'])
     }).catch(() => {
       this.errorMessage = "Email or password is incorrrect."
       this.showError = true
