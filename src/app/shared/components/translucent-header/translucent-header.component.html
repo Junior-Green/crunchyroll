@@ -1,0 +1,12 @@
+<nav class="w-full h-[4rem] flex flex-row justify-center bg-black sticky top-0 z-[1] bg-opacity-75">
+    <div class="max-w-6xl flex justify-between w-full items-center">
+        <mat-icon [svgIcon]="'cr-logo'" class="horizontal-logo transition-colors ml-4" routerLink="/"></mat-icon>
+        <div class="mr-4">
+            <a *ngIf="!loggedIn"
+                class="text-white hidden text-sm font-medium py-[12px] px-[35px] transition-colors login-button mr-3 md:inline-block"
+                routerLink="/auth/login">LOG IN</a>
+            <a class="text-white text-sm font-medium py-[10px] px-[30px] transition-colors bg-transparent border-x-neutral-200 border-2 hover:border-white"
+                routerLink="/">EXPLORE</a>
+        </div>
+    </div>
+</nav>

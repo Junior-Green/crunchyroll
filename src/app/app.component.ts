@@ -10,15 +10,14 @@ import { Subscription, map } from 'rxjs';
 export class AppComponent implements OnDestroy {
   renderNavbar = true;
   urlSubscription: Subscription
-  doNotRenderNavbarRoutes: string[] = [
-    'auth/register',
-    'auth/login'
+  renderNavbarRoutes: string[] = [
+    ''
   ]
 
   constructor(private router: Router) {
     this.urlSubscription = this.router.events.subscribe(event => {
       if (event instanceof NavigationEnd) {
-        this.renderNavbar = !this.doNotRenderNavbarRoutes.includes(event.url.substring(1))
+        this.renderNavbar = this.renderNavbarRoutes.includes(event.url.substring(1))
       }
     })
   }

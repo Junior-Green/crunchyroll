@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnDestroy, OnInit } from '@angular/core';
 import { MatIconRegistry } from '@angular/material/icon';
 import { DomSanitizer } from '@angular/platform-browser';
 import { Router } from '@angular/router';
@@ -16,11 +16,22 @@ import { Unsubscribe } from 'firebase/auth';
 export class NavBarComponent implements OnInit, OnDestroy {
   isLoggedIn: boolean = false;
   isPremium: boolean = false;
-  unsubscribe: Unsubscribe;
+  unsubscribeAuthState: Unsubscribe;
+  unsubscribePremiumState: Unsubscribe | null = null;
 
-  constructor(private matIconRegistry: MatIconRegistry, private domSanitizer: DomSanitizer, private router: Router, private firebase: FirebaseService) {
-    this.unsubscribe = firebase.getAuthState((isLoggedIn) => {
+  constructor(private matIconRegistry: MatIconRegistry, private domSanitizer: DomSanitizer, private router: Router, firebase: FirebaseService) {
+    this.unsubscribeAuthState = firebase.subscribeToAuthState((isLoggedIn) => {
       this.isLoggedIn = isLoggedIn;
+
+      this.unsubscribePremiumState?.()
+
+      this.unsubscribePremiumState = firebase.subscribeToPremiumState((isPremium) => {
+        this.isPremium = isPremium
+      })
+
+      if (this.unsubscribePremiumState === null) {
+        this.isPremium = false;
+      }
     })
   }
 
@@ -35,8 +46,12 @@ export class NavBarComponent implements OnInit, OnDestroy {
     this.router.navigate([route])
   }
 
-  ngOnDestroy(): void {
-    this.unsubscribe()
+  recieveEmission(data: boolean): void {
+    this.isPremium = data
   }
 
+  ngOnDestroy(): void {
+    this.unsubscribeAuthState()
+    this.unsubscribePremiumState?.()
+  }
 }

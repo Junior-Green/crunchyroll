@@ -14,8 +14,12 @@ module.exports = {
       animation: {
         fade: 'fadeIn 500ms ease-in-out',
       },
-
-      // that is actual animation
+      backgroundImage: {
+        'premium-background-desktop': "url('/assets/images/background-desktop.webp')",
+        'premium-background-tablet': "url('/assets/images/background-tablet.webp')",
+        'premium-background-mobile': "url('/assets/images/background-mobile.webp')",
+      },
+      // // that is actual animation
       keyframes: theme => ({
         fadeIn: {
           '100%': {
@@ -27,9 +31,9 @@ module.exports = {
         },
       }),
       colors: {
-        crunchyroll : {
-          orange: "#F47521"
-
+        crunchyroll: {
+          orange: "#F47521",
+          yellow: "#fab818"
         }
       }
     },

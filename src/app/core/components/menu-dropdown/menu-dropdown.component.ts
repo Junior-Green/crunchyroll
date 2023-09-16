@@ -8,6 +8,24 @@ import { Component } from '@angular/core';
 export class MenuDropdownComponent {
   menuDropdownShowing: boolean = false;
 
+  games = [
+    'Action',
+    'Adventure',
+    'Comedy',
+    'Drama',
+    'Fanstasy',
+    'Music',
+    'Romance',
+    'Sci-Fi',
+    'Seinen',
+    'Shojo',
+    'Shonen',
+    'Slice of life',
+    'Sports',
+    'Supernatural',
+    'Thriller'
+  ]
+
   constructor() {}
 
 

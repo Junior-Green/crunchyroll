@@ -3,14 +3,9 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { CoreModule } from './core/core.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { environment } from 'src/environments/environment';
 import { LandingModule } from './features/landing/landing.module';
 import { AppComponent } from './app.component';
-import * as firebase from 'firebase/app';
 import { ErrorModule } from './features/error/error.module';
-
-export const app = firebase.initializeApp(environment.firebaseConfig);
-
 @NgModule({
   declarations: [
     AppComponent

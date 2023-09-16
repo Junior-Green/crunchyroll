@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { MatIconRegistry } from '@angular/material/icon';
 import { DomSanitizer, Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
@@ -31,7 +31,8 @@ export class LoginComponent {
     this.showError = !this.showError
   }
 
-  registerAccount() {
+  login() {
+    this.showError = false
     this.firebase.signIn(this.formData.email, this.formData.password).then(() => {
       this.router.navigate(['/'])
     }).catch(() => {

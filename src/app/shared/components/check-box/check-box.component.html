@@ -1,0 +1,4 @@
+<div class="border-2 w-5 h-5 bg-cyan-950 transition-colors flex justify-center items-center"
+    [ngClass]="{'border-teal-400': checked, 'border-zinc-400' : !checked}">
+    <mat-icon *ngIf="checked" [svgIcon]="'cr-checkmark'" class="checkmark fade-in"></mat-icon>
+</div>

@@ -16,10 +16,11 @@ export class FreeTrialPromptComponent implements OnInit, OnDestroy {
   loggedOutButtonLabel: string = "TRY FREE"
   loggedInButtonLabel: string = "GO"
   isLoggedIn: boolean = false;
+
   unsubscriber: Unsubscribe;
 
   constructor(private matIconRegistry: MatIconRegistry, private domSanitizer: DomSanitizer, firebase: FirebaseService) {
-    this.unsubscriber = firebase.getAuthState((loggedIn) => {
+    this.unsubscriber = firebase.subscribeToAuthState((loggedIn) => {
       this.isLoggedIn = loggedIn;
     })
   }

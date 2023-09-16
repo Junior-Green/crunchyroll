@@ -1,0 +1,8 @@
+<button class="min-w-[8rem] py-2 px-3 flex items-center button transition-colors"
+    [ngClass]="{'border-crunchyroll-yellow' : style === 'outline', 'bg-crunchyroll-yellow' : style === 'fill', }">
+    <mat-icon [svgIcon]="'cr-crown'" *ngIf="showCrown"
+        [ngClass]="{'text-black' : style === 'fill', 'text-crunchyroll-yellow' : style === 'outline'}"
+        class="mr-2"></mat-icon>
+    <span [ngClass]="{'text-black' : style === 'fill', 'text-crunchyroll-yellow' : style === 'outline'}"
+        class="text-sm font-medium">{{label}}</span>
+</button>

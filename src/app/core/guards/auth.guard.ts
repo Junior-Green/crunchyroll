@@ -4,5 +4,9 @@ import { inject } from '@angular/core';
 
 export const authGuard: CanActivateFn = () => {
   const firebase = inject(FirebaseService);
-  return firebase.isLoggedIn()
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve(!firebase.isLoggedIn())
+    }, 150)
+  })
 };

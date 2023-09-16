@@ -1,5 +1,3 @@
-$logo-size: 12px;
-
 .mat-mdc-form-field-error-wrapper,
 .mat-mdc-form-field-hint-wrapper {
     padding: 0 !important;
@@ -20,7 +18,7 @@ $logo-size: 12px;
 }
 
 .checkbox-container:hover {
-    div {
+    cr-check-box div {
         border-color: white;
     }
 
@@ -35,17 +33,6 @@ $logo-size: 12px;
 
 .mdc-text-field--filled .mdc-line-ripple::before {
     border-bottom-width: 2px !important;
-}
-
-
-.checkmark {
-    font-size: $logo-size;
-    height: auto;
-    width: $logo-size ;
-}
-
-.fade-in {
-    animation: fadeIn 250ms ease-in-out;
 }
 
 @keyframes fadeIn {

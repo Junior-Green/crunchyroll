@@ -1,0 +1,27 @@
+<main class="w-full relative">
+    <cr-translucent-header class="w-full absolute"></cr-translucent-header>
+    <section class="w-full flex justify-center">
+        <div
+            class="max-w-[90rem] w-full flex flex-col md:bg-premium-background-desktop sm:bg-premium-background-tablet bg-premium-background-mobile bg-cover sm:bg-contain md:bg-cover bg-no-repeat min-h-[700px] pt-[25%] md:pt-40">
+            <div class="flex flex-col items-center md:items-start w-full md:px-[10%] px-[5%]">
+                <h1
+                    class="text-white font-bold text-2xl sm:text-3xl md:text-4xl max-w-[550px] w-full md:leading-[50px] text-center premium-background-text">
+                    Upgrade
+                    Your
+                    Anime Experience with
+                    Premium</h1>
+                <cr-premium-button [showCrown]="true"
+                    [label]="loggedIn ? loggedInPremiumButtonLabel : loggedOutPremiumButtonLabel" class="my-4"
+                    (click)="addShow()"></cr-premium-button> <!--TODO: CHANGE THE FUNCTION BACK TO UPDGRADETOPREMIUM-->
+                <p class="text-white text-xs max-w-[400px] text-center premium-background-text">{{loggedIn ?
+                    loggedInPremiumDesc : loggedOutPremiumDesc}}</p>
+                <a class="flex items-center compare-redirect mt-3 cursor-pointer" (click)="scrollToPlans()">
+                    <span class="text-crunchyroll-orange font-semibold transition-colors mr-1 text-sm">COMPARE ALL
+                        PLANS</span>
+                    <mat-icon class="transition-colors text-crunchyroll-orange">arrow_downward</mat-icon>
+                </a>
+            </div>
+        </div>
+    </section>
+</main>
+<cr-error-alert [errorMessage]="errorMessage" [showing]="showError"></cr-error-alert>

@@ -14,7 +14,7 @@
     [tooltip]="premiumTooltipTemplate" placement="bottom" containerClass="free-trial-tooltip">
     <mat-icon [svgIcon]="'cr-crown'" class="crown transition-colors"></mat-icon>
     <div class="flex-col ml-2 hidden md:flex ">
-        <span style="color: #FFD700;" class="text-xs">{{isLoggedIn ? loggedInButtonLabel : loggedOutButtonLabel}}</span>
+        <span class="text-xs text-crunchyroll-yellow">{{isLoggedIn ? loggedInButtonLabel : loggedOutButtonLabel}}</span>
         <span class="text-white text-xs">PREMIUM</span>
     </div>
 </a>

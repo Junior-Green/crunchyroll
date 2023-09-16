@@ -1,18 +1,18 @@
 <div dropdown (onShown)="menuDropdownHandler('onShown')" (onHidden)="menuDropdownHandler('onHidden')"
-    class="w-full h-full" [insideClick]="true" container="body" placement="bottom right">
+    class="w-full h-full" [insideClick]="false" container="body" placement="bottom right">
     <div dropdownToggle [ngClass]="{'bg-zinc-900' : menuDropdownShowing}"
         class="h-full flex items-center justify-center py-2 px-[1.25rem] hover:bg-zinc-900 transition-colors hover:cursor-pointer button">
         <img src="/assets/images/avatar.jpeg" width="35" height="35" class="avatar" alt="profile picture" />
         <mat-icon class="text-zinc-300 transition-colors ml-2">arrow_drop_down</mat-icon>
     </div>
-    <ul *dropdownMenu class="dropdown-menu main-dropdown dropdown-menu-right" role="menu"
+    <ul *dropdownMenu class="dropdown-menu main-dropdown dropdown-menu-right h-auto" role="menu"
         aria-labelledby="button-basic">
         <div class="div flex flex-row justify-start items-center ml-4">
             <img src="/assets/images/avatar.jpeg" width="50" height="50" class="avatar mr-4" alt="profile picture"
                 loading="lazy" />
             <span class="text-white text-xl">Goku</span>
         </div>
-        <li role="menuitem" class="mx-3 mt-3">
+        <li role="menuitem" class="mx-3 mt-3" *ngIf="!isPremium">
             <a routerLink="/plans">
                 <div class="w-full h-full flex flex-row items-center justify-center button-container py-2">
                     <mat-icon [svgIcon]="'cr-crown'" class="crown mr-2"></mat-icon>
@@ -30,7 +30,7 @@
         <li role="menuitem">
             <a class="dropdown-item pl-5 py-3 flex flex-row justify-start items-center " routerLink="/crunchylists">
                 <mat-icon class="text-zinc-300 scale-[1.10] transition-colors mr-4">format_list_bulleted</mat-icon>
-                <span class="text-white font-light">Cruncylists</span>
+                <span class="text-white font-light">Crunchylists</span>
             </a>
         </li>
         <li role="menuitem">

@@ -1,1 +1,12 @@
-<p>no-page-found works!</p>
+<main class="w-full h-full flex flex-col items-center justify-between overflow-hidden">
+    <cr-header class="w-full" />
+    <div class="flex flex-col md:flex-row items-center w-full justify-center">
+        <img src="/assets/images/yuzu-bucket.png" class="md:w-96 md:h-96 w-64 h-64" draggable="false">
+        <div class="flex flex-col items-center md:items-start w-full md:w-auto px-4 md:px-0">
+            <h1 class="text-white font-medium text-4xl">404 - Page Not Found</h1>
+            <h2 class="text-white text-xl my-3">Yuzu says this page is still in development!</h2>
+            <cr-button label="TAKE ME HOME" routerLink="/" class="w-full md:w-auto"></cr-button>
+        </div>
+    </div>
+    <cr-footer class="w-full" />
+</main>

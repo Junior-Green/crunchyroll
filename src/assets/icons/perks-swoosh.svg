@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="780 1048 1703 831">
+<defs>
+<linearGradient x1="61.426%" y1="95.408%" x2="25.735%" y2="95.408%" id="gradient">
+  <stop offset="0%">
+  </stop>
+  <stop stop-color="#863500" offset="22.138%">
+  </stop>
+  <stop stop-color="#F47521" offset="45.748%">
+  </stop>
+  <stop stop-color="#FAB818" offset="100%">
+  </stop>
+  </linearGradient>
+</defs>
+<path d="M780 1840.178c785.73 0 1102.045-421.545 1102.045-792.178H2483c0 370.633-637.91 992.496-1703 792.178z" fill="url(#gradient)" fill-rule="evenodd"/>
+</svg>

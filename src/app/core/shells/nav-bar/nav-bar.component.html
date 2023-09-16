@@ -15,7 +15,7 @@
                 <mat-icon class="text-zinc-300 scale-[1.20] transition-colors">bookmark_border</mat-icon>
             </a>
             <ng-container [ngSwitch]="isLoggedIn">
-                <cr-logged-in-dropdown *ngSwitchCase="true"></cr-logged-in-dropdown>
+                <cr-logged-in-dropdown *ngSwitchCase="true" (dataEmitter)="recieveEmission($event)"></cr-logged-in-dropdown>
                 <cr-logged-out-dropdown *ngSwitchCase="false"></cr-logged-out-dropdown>
             </ng-container>
         </div>

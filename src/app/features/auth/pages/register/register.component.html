@@ -30,11 +30,7 @@
             </mat-form-field>
             <div class="flex flex-row mt-7 items-center cursor-pointer self-start" (click)="toggleCheckbox()"
                 [ngClass]="{'checkbox-container': !checkboxState}">
-                <div class="border-2 w-5 h-5 bg-cyan-950 transition-colors flex justify-center items-center"
-                    [ngClass]="{'border-teal-400': checkboxState, 'border-zinc-400' : !checkboxState}">
-                    <mat-icon *ngIf="checkboxState" [svgIcon]="'cr-checkmark'" class="checkmark fade-in"></mat-icon>
-                </div>
-
+                <cr-check-box [checked]="checkboxState"></cr-check-box>
                 <span class="ml-2 text-zinc-400 text-sm transition-colors" [ngClass]="{'text-white': checkboxState}">I
                     want all the latest Cruncyroll, info,
                     offers, and news</span>
@@ -47,10 +43,8 @@
             16 years of age.
         </p>
         <ng-container [ngSwitch]="loading">
-            <button
-                class="border-none bg-crunchyroll-orange text-black font-medium text-[15px] px-3 py-2 mt-3 transition-colors hover:bg-orange-400 w-full md:w-auto"
-                [disabled]="loginForm.invalid" *ngSwitchCase="false">CREATE
-                ACCOUNT</button>
+            <cr-button label="CREATE ACCOUNT" [disabled]="loginForm.invalid ?? true" *ngSwitchCase="false"
+                class="mt-3 w-full md:w-auto"></cr-button>
             <mat-progress-spinner *ngSwitchCase="true" mode="indeterminate" diameter="40" strokeWidth="5"
                 class="mt-3" />
         </ng-container>
