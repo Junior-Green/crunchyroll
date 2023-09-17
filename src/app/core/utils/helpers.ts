@@ -6,3 +6,7 @@ export function convertToSlug(inputString: string): string {
 
     return slug;
 }
+
+export function convertCommaDelimitedToArray(inputString: string): string[] {
+    return inputString.split(',').map((str) => str.trim());
+}

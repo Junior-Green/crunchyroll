@@ -4,7 +4,7 @@ import { Unsubscribe, User, UserCredential, createUserWithEmailAndPassword, getA
 import { Timestamp, doc, getDoc, getFirestore, onSnapshot, setDoc } from "firebase/firestore"
 import { getStorage } from "firebase/storage"
 import { firebaseApp } from 'src/main';
-import { Show } from '../models/show.model';
+import Show from '../models/show.model';
 import { environment } from 'src/environments/environment';
 import { convertToSlug } from '../utils/helpers';
 

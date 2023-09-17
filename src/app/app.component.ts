@@ -1,6 +1,6 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
-import { Subscription, map } from 'rxjs';
+import { Component, OnDestroy } from '@angular/core';
+import { NavigationEnd, Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-root',

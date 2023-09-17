@@ -3,18 +3,15 @@ import * as firebase from 'firebase/app';
 import { AppModule } from './app/app.module';
 import { environment } from './environments/environment';
 import { enableProdMode } from '@angular/core';
-import { getStorage } from 'firebase/storage';
-import { getFirestore } from 'firebase/firestore';
-import { getAuth } from 'firebase/auth';
+import { getPerformance } from "firebase/performance";
 
 if (environment.production) {
   enableProdMode()
 }
 
 export const firebaseApp = firebase.initializeApp(environment.firebaseConfig)
-getAuth(firebaseApp);
-getFirestore(firebaseApp);
-getStorage(firebaseApp);
+
+const perf = getPerformance(firebaseApp);
 
 platformBrowserDynamic().bootstrapModule(AppModule)
   .catch(err => console.error(err));

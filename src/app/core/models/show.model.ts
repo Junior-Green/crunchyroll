@@ -1,6 +1,7 @@
 import { Timestamp } from "firebase/firestore"
+import Review from "./review.model";
 
-export interface Show {
+export default interface Show {
     title: string,
     audio: string[],
     description: string,
@@ -9,11 +10,5 @@ export interface Show {
     subtitles: string[],
     genres: ("Action" | "Adventure" | "Comedy" | "Drama" | "Fantasy" | "Music" | "Romance" | "Sci-Fi" | "Seinen" | "Shojo" | "Shonen" | "Slice of life" | "Sports" | "Supernatural" | "Thriller")[],
     publisher: string,
-    reviews?: {
-        content: string,
-        date: Timestamp,
-        id: string,
-        rating: 1 | 2 | 3 | 4 | 5,
-        title: string
-    }[],
+    reviews?: Review[],
 }

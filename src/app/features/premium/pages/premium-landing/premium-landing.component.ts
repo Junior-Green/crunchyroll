@@ -2,8 +2,9 @@ import { Component, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { Unsubscribe } from 'firebase/auth';
 import { Timestamp } from 'firebase/firestore';
-import { Show } from 'src/app/core/models/show.model';
+import Show from 'src/app/core/models/show.model';
 import { FirebaseService } from 'src/app/core/services/firebase.service';
+import { convertCommaDelimitedToArray } from 'src/app/core/utils/helpers';
 
 @Component({
   selector: 'cr-premium-landing',
@@ -41,36 +42,19 @@ export class PremiumLandingComponent implements OnDestroy {
 
   addShow() {
     const show: Show = {
-      title: "Demon Slayer: Kimetsu no Yaiba",
-      audio: [
-        "Japanese",
-        "English",
-        "Deutsch",
-        "Español (América Latina)",
-        "Español (España)",
-        "Français",
-        "Italiano",
-        "Português (Brasil)",
-        "Русский"
-      ],
-      description: "Gabimaru reigns as the strongest and most ruthless assassin in his village. But now finds himself on death row—with only one way out: retrieve the Elixir of Life from a sinister island. Longing for freedom, he accepts the challenge. But with fellow convicts vying for the same prize and demonic beasts lurking, how will Gabimaru survive this harrowing quest?",
-      dub: true,
+      title: "Overlord",
+      audio: convertCommaDelimitedToArray("Japanese"),
+      description: "When a popular MMORPG is scheduled to be shut down permanently, veteran player Momonga refuses to log out. As NPCs begin to develop personalities and minds of their own he decides to put his skills to use as the game’s new overlord.",
+      dub: false,
       sub: true,
-      subtitles: [
-        "English",
-        "Deutsch",
-        "Español (América Latina)",
-        "Español (España)",
-        "Français",
-        "Italiano",
-        "Português (Brasil)",
-        "Русский",
-        "العربية"
-      ],
+      subtitles: convertCommaDelimitedToArray("English, Español (América Latina), Português (Brasil)"),
       genres: [
-        "Action", "Drama", "Fantasy", "Shonen"
+        "Action",
+        "Adventure",
+        "Fantasy",
+        "Supernatural"
       ],
-      publisher: "TWIN ENGINE Inc",
+      publisher: "Kadokawa Pictures Inc.",
     }
     this.firebase.addShow(show)
   }
