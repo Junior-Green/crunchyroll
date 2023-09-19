@@ -27,8 +27,8 @@ export class LoginComponent {
     titleService.setTitle('Login');
   }
 
-  toggleAlert() {
-    this.showError = !this.showError
+  toggleAlert(): void {
+    this.showError = false
   }
 
   login() {

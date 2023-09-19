@@ -1,6 +1,6 @@
-<div *ngIf="showing"
-    class="bg-red-400 fixed bottom-2 left-[40%] right-[40%] flex justify-between items-center py-2 px-3 overflow-hidden border-red-700 border-[1px] animate-fade">
+<div
+    class="bg-red-400 fixed bottom-2 left-[38%] right-[38%] flex justify-between items-center py-2 px-3 overflow-hidden border-red-700 border-[1px] animate-fade">
     <span class="text-ellipsis max-w-[80%] overflow-hidden text-red-700 font-medium"> {{errorMessage}}</span>
     <mat-icon class="text-red-700 transition-colors cursor-pointer hover:text-black"
-        (click)="toggleVisibility()">close</mat-icon>
+        (click)="onClose()">close</mat-icon>
 </div>

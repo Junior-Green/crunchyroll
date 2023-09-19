@@ -1,6 +1,6 @@
-<button class="py-2 px-3 flex items-center justify-center transition-colors" [disabled]="disabled"
+<button class="py-2 px-3 flex items-center justify-center transition-colors w-full h-full" [disabled]="disabled"
     [ngClass]="buttonStyle === 'outline' ? 'border-[2px]' : ''"
-    [ngStyle]="{'background-color' : buttonStyle === 'fill' ? (isHovered ? hoverShade : backgroundColor) : '', 'border-color' : buttonStyle === 'outline' ? (isHovered ? hoverShade : backgroundColor) : '', 'width' : width ? width + 'px': 'auto', 'height' : height ? height + 'px' : 'auto'}"
+    [ngStyle]="{'background-color' : buttonStyle === 'fill' ? (isHovered ? hoverShade : backgroundColor) : '', 'border-color' : buttonStyle === 'outline' ? (isHovered ? hoverShade : backgroundColor) : ''}"
     (mouseenter)="isHovered = true" (mouseleave)="isHovered = false">
     <span class="'text-sm font-medium" [ngStyle]="{'color' : labelColor}">{{label}}</span>
 </button>

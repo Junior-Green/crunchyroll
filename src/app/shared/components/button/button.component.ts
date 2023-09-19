@@ -14,8 +14,6 @@ export class ButtonComponent {
   @Input() backgroundColor: string = "#000000"
   @Input() labelColor: string = "#FFFFFF"
   @Input() buttonStyle: "fill" | "outline" = "fill"
-  @Input() width?: number
-  @Input() height?: number
   hoverShade: string = "#000000";
   isHovered: boolean = false;
 

@@ -6,6 +6,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LandingModule } from './features/landing/landing.module';
 import { AppComponent } from './app.component';
 import { ErrorModule } from './features/error/error.module';
+import { CarouselModule } from 'ngx-bootstrap/carousel';
 @NgModule({
   declarations: [
     AppComponent
@@ -16,7 +17,7 @@ import { ErrorModule } from './features/error/error.module';
     BrowserAnimationsModule,
     ErrorModule,
     CoreModule,
-    LandingModule
+    LandingModule,
   ],
   bootstrap: [AppComponent],
 })

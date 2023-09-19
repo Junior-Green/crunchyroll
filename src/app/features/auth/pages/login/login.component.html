@@ -28,16 +28,16 @@
         <ng-container [ngSwitch]="loading">
             <cr-button label="LOG IN" [disabled]="loginForm.invalid ?? true" *ngSwitchCase="false"
                 backgroundColor="#F47521" labelColor="#000" buttonStyle="fill"
-                class="mt-3 w-full md:w-36"></cr-button>
+                class="mt-3 w-full md:w-32 text-sm"></cr-button>
             <mat-progress-spinner *ngSwitchCase="true" mode="indeterminate" diameter="40" strokeWidth="5"
                 class="mt-3" />
         </ng-container>
 
-        <span class="text-white text-sm mt-3">No account? <a routerLink="/auth/register"
+        <span class="text-white text-sm mt-3 text-center">No account? <a routerLink="/auth/register"
                 class="text-crunchyroll-orange font-semibold transition-colors hover:text-white ml-1">CREATE
                 ONE</a></span>
     </form>
     <cr-footer [showNav]="true" class="w-full"></cr-footer>
 </main>
 
-<cr-error-alert [showing]="showError" [errorMessage]="errorMessage"></cr-error-alert>
+<cr-error-alert *ngIf="showError" [errorMessage]="errorMessage" (onClosed)="toggleAlert()"></cr-error-alert>

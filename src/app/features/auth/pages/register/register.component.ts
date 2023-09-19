@@ -36,7 +36,7 @@ export class RegisterComponent implements OnInit {
   }
 
   toggleAlert() {
-    this.showError = !this.showError
+    this.showError = false
   }
 
   registerAccount() {

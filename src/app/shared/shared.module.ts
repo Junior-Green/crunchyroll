@@ -14,6 +14,7 @@ import { ErrorAlertComponent } from './components/error-alert/error-alert.compon
 import { ButtonComponent } from './components/button/button.component';
 import { TranslucentHeaderComponent } from './components/translucent-header/translucent-header.component';
 import { CheckBoxComponent } from './components/check-box/check-box.component';
+import { CarouselModule } from 'ngx-bootstrap/carousel';
 
 @NgModule({
   declarations: [
@@ -44,6 +45,7 @@ import { CheckBoxComponent } from './components/check-box/check-box.component';
     ButtonComponent,
     TranslucentHeaderComponent,
     CheckBoxComponent,
+    CarouselModule
   ]
 })
 export class SharedModule { }

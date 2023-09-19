@@ -1,15 +1,13 @@
 import { Component, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { Unsubscribe } from 'firebase/auth';
-import { Timestamp } from 'firebase/firestore';
-import Show from 'src/app/core/models/show.model';
 import { FirebaseService } from 'src/app/core/services/firebase.service';
-import { convertCommaDelimitedToArray } from 'src/app/core/utils/helpers';
-
+import { PremiumLandingService } from '../../services/premium-landing.service';
 @Component({
   selector: 'cr-premium-landing',
   templateUrl: './premium-landing.component.html',
-  styleUrls: ['./premium-landing.component.scss']
+  styleUrls: ['./premium-landing.component.scss'],
+  providers: [PremiumLandingService]
 })
 export class PremiumLandingComponent implements OnDestroy {
 
@@ -23,40 +21,24 @@ export class PremiumLandingComponent implements OnDestroy {
 
   private unsub: Unsubscribe;
 
-  constructor(private firebase: FirebaseService, private router: Router) {
+  constructor(firebase: FirebaseService, private service: PremiumLandingService) {
     this.unsub = firebase.subscribeToAuthState((loggedIn) => this.loggedIn = loggedIn);
   }
+
   scrollToPlans(): void {
 
   }
 
   upgradeToPremium(): void {
     this.showError = false;
-    this.firebase.upgradeToPremium().then(() => {
-      this.router.navigate(['/'])
-    }).catch((err: string) => {
+    this.service.upgradeToPremium().catch((err) => {
       this.showError = true
       this.errorMessage = err
     })
   }
 
-  addShow() {
-    const show: Show = {
-      title: "Overlord",
-      audio: convertCommaDelimitedToArray("Japanese"),
-      description: "When a popular MMORPG is scheduled to be shut down permanently, veteran player Momonga refuses to log out. As NPCs begin to develop personalities and minds of their own he decides to put his skills to use as the game’s new overlord.",
-      dub: false,
-      sub: true,
-      subtitles: convertCommaDelimitedToArray("English, Español (América Latina), Português (Brasil)"),
-      genres: [
-        "Action",
-        "Adventure",
-        "Fantasy",
-        "Supernatural"
-      ],
-      publisher: "Kadokawa Pictures Inc.",
-    }
-    this.firebase.addShow(show)
+  closeAlert(): void {
+    this.showError = false;
   }
 
   ngOnDestroy(): void {

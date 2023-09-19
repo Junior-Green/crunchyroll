@@ -96,7 +96,7 @@ export class FirebaseService implements OnDestroy {
     if (environment.production) {
       throw new Error('This method should not be allowed to be invoked in production')
     }
-    
+
     setDoc(doc(this.firestore, 'shows', convertToSlug(show.title)), {
       ...show,
       lastUpdated: Timestamp.now()
@@ -119,6 +119,16 @@ export class FirebaseService implements OnDestroy {
       console.log(err)
       return Promise.reject('Error initialising user data')
     })
+  }
+
+  getPremiumShowcase(): Show[] {
+    
+
+    return []
+  }
+
+  getShowImages(showId: string) {
+
   }
 
   ngOnDestroy(): void {
