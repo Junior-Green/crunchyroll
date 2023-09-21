@@ -1,12 +1,13 @@
 
 import { Injectable, OnDestroy } from '@angular/core';
 import { Unsubscribe, User, UserCredential, createUserWithEmailAndPassword, getAuth, signInWithEmailAndPassword } from "firebase/auth";
-import { Timestamp, doc, getDoc, getFirestore, onSnapshot, setDoc } from "firebase/firestore"
-import { getStorage } from "firebase/storage"
+import { DocumentReference, Timestamp, doc, getDoc, getFirestore, onSnapshot, setDoc } from "firebase/firestore"
+import { getDownloadURL, getStorage, ref } from "firebase/storage"
 import { firebaseApp } from 'src/main';
 import Show from '../models/show.model';
 import { environment } from 'src/environments/environment';
 import { convertToSlug } from '../utils/helpers';
+import ShowImages from '../models/show-images.model';
 
 @Injectable({
   providedIn: 'root'
@@ -121,14 +122,89 @@ export class FirebaseService implements OnDestroy {
     })
   }
 
-  getPremiumShowcase(): Show[] {
-    
+  async getShowCollection(collectionId: string): Promise<Show[]> {
+    const docRef = doc(this.firestore, "collections", collectionId);
+    const docSnap = await getDoc(docRef);
 
-    return []
+    if (docSnap.exists()) {
+      const data = docSnap.data()
+      const showRefs: DocumentReference[] = data['shows']
+
+      return Promise.all(showRefs.map<Promise<Show>>(async (ref) => {
+        const showSnap = await getDoc(ref)
+        const showData = showSnap.data()
+
+        if (showData === undefined) {
+          return Promise.reject('Error retrieving data')
+        }
+
+        const showObj: Omit<Show, 'imageUrls'> = {
+          showId: ref.id,
+          title: showData['title'],
+          audio: showData['audio'],
+          description: showData['description'],
+          dub: showData['dub'],
+          sub: showData['sub'],
+          subtitles: showData['subtitles'],
+          genres: showData['genres'],
+          publisher: showData['publisher']
+        }
+
+        return {
+          ...showObj,
+          imageUrls: await this.getShowImages(showObj.showId)
+        }
+      }))
+    } else {
+      return Promise.reject("Collection does not exist");
+    }
   }
 
-  getShowImages(showId: string) {
+  async getShowImages(showId: string): Promise<ShowImages> {
+    const portraitCoverUrl: string = await getDownloadURL(ref(this.storage, `shows/${showId}/cover/portrait.jpe`))
+    const landscapeCoverUrl: string = await getDownloadURL(ref(this.storage, `shows/${showId}/cover/landscape.jpe`))
+    const logoUrl: string = await getDownloadURL(ref(this.storage, `shows/${showId}/logo/logo.webp`))
 
+    return {
+      covers: {
+        portrait: portraitCoverUrl,
+        landscape: landscapeCoverUrl
+      },
+      logo: logoUrl
+    }
+  }
+
+  async getShow(showId: string): Promise<Show> {
+    const docRef = doc(this.firestore, "shows", showId);
+    const docSnap = await getDoc(docRef);
+
+    if (docSnap.exists()) {
+      const showData = docSnap.data()
+
+      if (showData === undefined) {
+        return Promise.reject('Error retrieving data')
+      }
+
+      const showObj: Omit<Show, 'imageUrls'> = {
+        showId: docRef.id,
+        title: showData['title'],
+        audio: showData['audio'],
+        description: showData['description'],
+        dub: showData['dub'],
+        sub: showData['sub'],
+        subtitles: showData['subtitles'],
+        genres: showData['genres'],
+        publisher: showData['publisher']
+      }
+
+      return {
+        ...showObj,
+        imageUrls: await this.getShowImages(showObj.showId)
+      }
+
+    } else {
+      return Promise.reject("Show does not exist");
+    }
   }
 
   ngOnDestroy(): void {

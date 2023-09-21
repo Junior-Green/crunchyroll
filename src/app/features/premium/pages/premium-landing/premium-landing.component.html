@@ -25,10 +25,9 @@
     </section>
     <section class="w-full flex flex-col items-center -mt-40">
         <h1 class="text-center text-white text-6xl font-bold">Be the First to Watch</h1>
-        <h2 class="text-white text-lg w-[500px] text-center mt-3">Stream full seasons of the top anime, simulcasts, Crunchyroll Originals, and more!</h2>
-        <carousel class="w-full max-w-[80%]">
-
-        </carousel>
+        <h2 class="text-white text-lg w-[500px] text-center mt-3">Stream full seasons of the top anime, simulcasts,
+            Crunchyroll Originals, and more!</h2>
+        <cr-premium-showcase-carousel />
     </section>
 </main>
 <cr-error-alert *ngIf="showError" [errorMessage]="errorMessage" (onClosed)="closeAlert()"></cr-error-alert>

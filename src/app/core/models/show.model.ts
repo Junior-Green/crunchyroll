@@ -1,5 +1,6 @@
 import { Timestamp } from "firebase/firestore"
 import Review from "./review.model";
+import ShowImages from "./show-images.model";
 
 export default interface Show {
     showId: string;
@@ -12,11 +13,5 @@ export default interface Show {
     genres: ("Action" | "Adventure" | "Comedy" | "Drama" | "Fantasy" | "Music" | "Romance" | "Sci-Fi" | "Seinen" | "Shojo" | "Shonen" | "Slice of life" | "Sports" | "Supernatural" | "Thriller")[],
     publisher: string,
     reviews?: Review[],
-    imageUrls: {
-        covers: {
-            portrait: string,
-            landscape: string
-        },
-        logo: string
-    }
+    imageUrls: ShowImages
 }
