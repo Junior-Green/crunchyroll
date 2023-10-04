@@ -15,6 +15,7 @@ import { ButtonComponent } from './components/button/button.component';
 import { TranslucentHeaderComponent } from './components/translucent-header/translucent-header.component';
 import { CheckBoxComponent } from './components/check-box/check-box.component';
 import { CarouselModule } from 'ngx-bootstrap/carousel';
+import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 
 @NgModule({
   declarations: [
@@ -45,7 +46,8 @@ import { CarouselModule } from 'ngx-bootstrap/carousel';
     ButtonComponent,
     TranslucentHeaderComponent,
     CheckBoxComponent,
-    CarouselModule
+    CarouselModule,
+    NgxSkeletonLoaderModule,
   ]
 })
 export class SharedModule { }

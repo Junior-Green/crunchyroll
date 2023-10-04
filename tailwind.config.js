@@ -18,6 +18,7 @@ module.exports = {
         'premium-background-desktop': "url('/assets/images/background-desktop.webp')",
         'premium-background-tablet': "url('/assets/images/background-tablet.webp')",
         'premium-background-mobile': "url('/assets/images/background-mobile.webp')",
+        'offline-background': "url('/assets/images/offline-bg.jpg')",
       },
       // // that is actual animation
       keyframes: theme => ({

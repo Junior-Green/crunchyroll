@@ -13,7 +13,7 @@
                 <cr-premium-button [showCrown]="true"
                     [label]="loggedIn ? loggedInPremiumButtonLabel : loggedOutPremiumButtonLabel" class="my-4"
                     (click)="upgradeToPremium()"></cr-premium-button>
-                <p class="text-white text-xs max-w-[400px] text-center premium-background-text">{{loggedIn ?
+                <p class="text-gray-300 text-xs max-w-[400px] text-center premium-background-text">{{loggedIn ?
                     loggedInPremiumDesc : loggedOutPremiumDesc}}</p>
                 <a class="flex items-center compare-redirect mt-3 cursor-pointer" (click)="scrollToPlans()">
                     <span class="text-crunchyroll-orange font-semibold transition-colors mr-1 text-sm">COMPARE ALL
@@ -23,11 +23,85 @@
             </div>
         </div>
     </section>
-    <section class="w-full flex flex-col items-center -mt-40">
-        <h1 class="text-center text-white text-6xl font-bold">Be the First to Watch</h1>
-        <h2 class="text-white text-lg w-[500px] text-center mt-3">Stream full seasons of the top anime, simulcasts,
+    <section class="w-full flex flex-col items-center md:-mt-40 -mt-60">
+        <h1 class="text-center text-white text-4xl md:text-6xl font-bold">Be the First to Watch</h1>
+        <h2 class="text-gray-300 text-lg w-[500px] text-center mt-3 px-3">Stream full seasons of the top anime,
+            simulcasts,
             Crunchyroll Originals, and more!</h2>
-        <cr-premium-showcase-carousel />
+        <cr-premium-showcase-carousel class="max-w-6xl w-full mt-5" />
+    </section>
+    <section class="w-full flex flex-col items-center">
+        <h1 class="text-center text-white text-4xl md:text-6xl font-bold pt-40">Get More with Premium</h1>
+        <a class="flex items-center compare-redirect mt-3 cursor-pointer" (click)="scrollToPlans()">
+            <span class="text-crunchyroll-orange font-semibold transition-colors mr-1 text-sm">COMPARE ALL
+                PLANS</span>
+            <mat-icon class="transition-colors text-crunchyroll-orange">arrow_downward</mat-icon>
+        </a>
+        <div class="flex flex-col md:flex-row pt-20 items-center justify-center w-full relative z-0">
+            <div class="grid grid-cols-2 grid-rows-2 items-start perk-grid min-w-[300px]">
+                <div class="flex flex-col items-center justify-center w-56 text-gray-300 text-base md:text-lg perk">
+                    <mat-icon class="text-cyan-500">schedule</mat-icon>
+                    <span class="text-center transition-colors">New episodes shortly after airing in Japan</span>
+                </div>
+                <div class="flex flex-col items-center justify-center w-56 text-gray-300 text-base md:text-lg perk">
+                    <mat-icon class="text-crunchyroll-orange">
+                        priority_high
+                    </mat-icon>
+                    <span class="text-center transition-colors">Ad-free anime</span>
+                </div>
+                <div class="flex flex-col items-center justify-center w-56 text-gray-300 text-base md:text-lg perk">
+                    <mat-icon class="text-crunchyroll-yellow">flightsmode</mat-icon>
+                    <span class="text-center transition-colors">Offline Viewing</span>
+                </div>
+                <div class="flex flex-col items-center justify-center w-56 text-gray-300 text-base md:text-lg perk">
+                    <mat-icon class="text-sky-300">devices</mat-icon>
+                    <span class="text-center transition-colors">Simultaneously stream on multiple devices<a
+                            (click)="scrollToDisclaimer()"
+                            class="text-crunchyroll-orange underline hover:text-white cursor-pointer">*</a></span>
+                </div>
+            </div>
+            <img src="/assets/images/hime-upsell.png" draggable="false" class="md:ml-20 ml-0 bg-contain md:p-0 p-5">
+            <img class="absolute perk-swoosh pointer-events-none md:block hidden" draggable="false"
+                src="/assets/icons/perks-swoosh.svg">
+        </div>
+    </section>
+    <section class="w-full flex justify-center">
+        <div
+            class="min-w-fit max-w-none md:min-w-[90rem] md:max-w-[90rem] w-full flex flex-col mt-20 bg-offline-background bg-cover bg-no-repeat max-h-[500px] min-h-[500px] md:max-h-fit md:min-h-[750px] md:pt-60 relative">
+            <div class="flex flex-col items-center md:items-start w-full md:pl-[50%] pl-0 md:mt-0 -mt-20">
+                <div class="flex flex-col md:flex-row items-center offline-header">
+                    <mat-icon class="text-xl mb-3 md:mb-0 mr-0 md:mr-3">
+                        flightsmode
+                    </mat-icon>
+                    <h1
+                        class="font-bold text-2xl sm:text-3xl md:text-4xl max-w-[550px] w-full md:leading-[50px] text-center premium-background-text mb-3 md:mb-0">
+                        Offline Viewing
+                    </h1>
+                </div>
+                <p class="w-full md:w-2/3 text-base md:text-lg md:px-0 px-3 offline-sub-header">
+                    Keep watching all your favourite shows on the road with Mega and Ultimate Fans and unlock
+                    Offline Viewing.
+                </p>
+            </div>
+            <img src="/assets/images/offline-1.png" class="absolute w-[300px] md:w-[650px]  left-[10px] md:left-[50px] bottom-0" draggable="false">
+            <img src="/assets/images/offline-2.webp" class="absolute w-[250px] md:w-[500px] offline-2 " draggable="false">
+        </div>
     </section>
 </main>
+<footer class="w-full flex flex-col mt-20 bg-black justify-center items-center">
+    <section class="w-full max-w-5xl flex flex-col justify-center items-center">
+        <div>
+            <h2 class="text-white text-center text-3xl mb-2">Questions?</h2>
+            <span class="text-white text-lg">Visit our <a
+                    class="text-crunchyroll-orange hover:underline hover:text-white transition-colors cursor-pointer">Help
+                    Center</a> to learn more.</span>
+        </div>
+        <span class="w-full text-white font-medium my-24 px-2">*Device and content availability vary by country or
+            region. Manga is
+            only available in
+            English.</span>
+    </section>
+
+    <cr-footer class="w-full" />
+</footer>
 <cr-error-alert *ngIf="showError" [errorMessage]="errorMessage" (onClosed)="closeAlert()"></cr-error-alert>

@@ -1,3 +1,5 @@
+$perk-icon-size: 40px;
+
 .compare-redirect:hover {
 
     mat-icon,
@@ -6,9 +8,100 @@
     }
 }
 
+.offline-2 {
+    left: 225px;
+    bottom: -50px;
+}
+
+
+.perk {
+    mat-icon {
+        transition: transform 0.3s ease;
+        font-size: $perk-icon-size;
+        height: auto;
+        width: $perk-icon-size ;
+        padding-bottom: 15px;
+    }
+}
+
+.offline-header {
+    mat-icon {
+        font-size: $perk-icon-size;
+        height: auto;
+        width: $perk-icon-size;
+        color: white;
+    }
+
+    h1 {
+        color: white;
+    }
+}
+
+.offline-sub-header {
+    color: white;
+    text-align: center;
+}
+
+.perk-swoosh {
+    z-index: -1 !important;
+    right: -35% !important;
+    bottom: -10% !important;
+}
+
+.perk-grid {
+    row-gap: 30px !important;
+    column-gap: 10px !important;
+}
 
 @media (min-width: 768px) {
+    $perk-icon-size: 40px;
+
+    .offline-header {
+        mat-icon {
+            font-size: $perk-icon-size;
+            height: auto;
+            width: $perk-icon-size;
+            color: black;
+        }
+
+        h1 {
+            color: black;
+
+        }
+    }
+
+    .offline-sub-header {
+        color: black;
+        text-align: left;
+    }
+
     .premium-background-text {
         text-align: left !important;
+    }
+
+    .perk:hover {
+        span {
+            color: white
+        }
+
+        mat-icon {
+            transform: translateY(-5px);
+        }
+    }
+
+    .perk-grid {
+        gap: 80px !important;
+    }
+
+    .perk {
+        mat-icon {
+            font-size: $perk-icon-size;
+            width: $perk-icon-size ;
+        }
+    }
+
+    .offline-2 {
+        left: 650px;
+        bottom: -60px;
     }
 }

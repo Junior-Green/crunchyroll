@@ -29,6 +29,10 @@ export class PremiumLandingComponent implements OnDestroy {
 
   }
 
+  scrollToDisclaimer(): void {
+
+  }
+
   upgradeToPremium(): void {
     this.showError = false;
     this.service.upgradeToPremium().catch((err) => {
