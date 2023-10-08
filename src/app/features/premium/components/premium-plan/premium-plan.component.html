@@ -1,0 +1,25 @@
+<div class="bg-zinc-900 p-5 flex flex-col max-w-sm items-center">
+    <h1 *ngIf="popular" class="text-crunchyroll-yellow mb-2">MOST POPULAR</h1>
+    <h1 class="text-2xl font-semibold text-white my-3">{{planName}}</h1>
+    <h1 class="text-2xl font-semibold text-white">{{"$" + price + "/mo" }}</h1>
+    <span class="text-zinc-400 text-[0.6rem] my-2">+ APPLICABLE TAXES</span>
+    <cr-button [labelColor]="popular ? 'black' : '#fab818'" backgroundColor="#fab818"
+        [buttonStyle]="popular ? 'fill' : 'outline'" [label]="loggedIn ? 'GO PREMIUM' : 'START 14-DAY FREE TRIAL'"
+        class="text-sm min-w-[300px]" (click)="upgradeToPremium()"></cr-button>
+    <p class="text-white font-medium text-xs tracking-wide leading-relaxed mt-3">Stream the entire Crunchyroll library
+        ad-free,
+        watch new episodes shortly after Japan, and read digital manga</p>
+    <div class="flex w-full justify-center items-center my-1">
+        <div class="border-t-[1px] border-t-zinc-400 w-full"></div>
+        <span class="text-xs text-gray-300 mx-2">PLUS</span>
+        <div class="border-t-[1px] border-t-zinc-400 w-full"></div>
+    </div>
+
+    <ul class="w-full">
+        <li *ngFor="let perk of perks" class="w-full flex justify-start items-start my-2">
+            <mat-icon class="perk-icon text-crunchyroll-yellow">check</mat-icon>
+            <span class="text-gray-300 text-sm ml-3">{{perk}}</span>
+        </li>
+    </ul>
+
+</div>
