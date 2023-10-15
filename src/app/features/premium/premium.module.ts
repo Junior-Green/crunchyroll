@@ -7,13 +7,17 @@ import { SharedModule } from 'src/app/shared/shared.module';
 import { PremiumButtonComponent } from './components/premium-button/premium-button.component';
 import { PremiumShowcaseCarouselComponent } from './components/premium-showcase-carousel/premium-showcase-carousel.component';
 import { HttpClientModule } from '@angular/common/http';
+import { PremiumPlanComponent } from './components/premium-plan/premium-plan.component';
+import { PremiumHeaderComponent } from './components/premium-header/premium-header.component';
 
 
 @NgModule({
   declarations: [
     PremiumLandingComponent,
     PremiumButtonComponent,
-    PremiumShowcaseCarouselComponent
+    PremiumShowcaseCarouselComponent,
+    PremiumPlanComponent,
+    PremiumHeaderComponent,
   ],
   imports: [
     CommonModule,

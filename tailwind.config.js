@@ -30,6 +30,14 @@ module.exports = {
             opacity: 0,
           },
         },
+        translateDown: {
+          '100%': {
+            transform: translateY(0)
+          },
+          '0%': {
+            transform: translateY('-100%')
+          },
+        }
       }),
       colors: {
         crunchyroll: {

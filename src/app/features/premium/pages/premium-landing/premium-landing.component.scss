@@ -8,11 +8,20 @@ $perk-icon-size: 40px;
     }
 }
 
+.ad-icon {
+    font-size: $perk-icon-size;
+    height: auto;
+    width: $perk-icon-size ;
+}
+
 .offline-2 {
     left: 225px;
     bottom: -50px;
 }
 
+.ads-sub-header {
+    text-align: center;
+}
 
 .perk {
     mat-icon {
@@ -68,6 +77,10 @@ $perk-icon-size: 40px;
             color: black;
 
         }
+    }
+
+    .ads-sub-header {
+        text-align: left;
     }
 
     .offline-sub-header {

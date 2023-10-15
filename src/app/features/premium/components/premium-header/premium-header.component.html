@@ -1,0 +1,13 @@
+<nav class="fixed w-full h-[4rem] flex flex-row justify-center bg-black top-0 z-[1] bg-opacity-75">
+    <div class="max-w-6xl flex justify-between w-full items-center">
+        <mat-icon [svgIcon]="'cr-logo'" class="horizontal-logo transition-colors ml-4" routerLink="/"></mat-icon>
+        <div class="mr-4">
+            <cr-button label="LOG IN" *ngIf="!loggedIn" class="text-sm font-medium mr-3 hidden md:inline-block w-32 h-10"
+                routerLink="/auth/login">
+            </cr-button>
+            <cr-button label="EXPLORE" class="text-sm font-medium inline-block w-32 h-10" routerLink="/" buttonStyle="outline"
+                backgroundColor="#FFF">
+            </cr-button>
+        </div>
+    </div>
+</nav>

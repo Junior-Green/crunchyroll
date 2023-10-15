@@ -1,4 +1,5 @@
 <main class="w-full relative">
+    <cr-premium-header />
     <cr-translucent-header class="w-full absolute"></cr-translucent-header>
     <section class="w-full flex justify-center">
         <div
@@ -83,9 +84,45 @@
                     Offline Viewing.
                 </p>
             </div>
-            <img src="/assets/images/offline-1.png" class="absolute w-[300px] md:w-[650px]  left-[10px] md:left-[50px] bottom-0" draggable="false">
-            <img src="/assets/images/offline-2.webp" class="absolute w-[250px] md:w-[500px] offline-2 " draggable="false">
+            <img src="/assets/images/offline-1.png"
+                class="absolute w-[300px] md:w-[650px]  left-[10px] md:left-[50px] bottom-0" draggable="false">
+            <img src="/assets/images/offline-2.webp" class="absolute w-[250px] md:w-[500px] offline-2 "
+                draggable="false">
         </div>
+    </section>
+    <section class="w-full flex md:flex-row flex-col justify-center items-center min-h-[600px] max-w-6xl mx-auto">
+        <div class="flex flex-col w-full md:w-1/2 pl-6">
+            <div class="flex flex-col md:flex-row items-center md:w-auto w-full">
+                <mat-icon class="text-xl mb-3 md:mb-0 mr-0 md:mr-3 text-white ad-icon">
+                    play_arrow
+                </mat-icon>
+                <h1
+                    class="font-bold text-2xl sm:text-3xl md:text-4xl max-w-[550px] w-full md:leading-[50px] text-center premium-background-text mb-3 md:mb-0 text-white">
+                    Anime Without Ads
+                </h1>
+            </div>
+            <p class="text-base md:text-lg md:px-0 px-3 text-white ads-sub-header">
+                Watch on Smart TVs, Playstation, Xbox, Chromecast, Apple TV, Blu-ray players, and more.
+            </p>
+        </div>
+        <div class="flex flex-col max-w-xl md:max-w-none w-full md:w-1/2 md:px-0 px-[5%] md:mt-0 mt-10">
+            <img src="/assets/images/premium-screen.webp" class="px-4">
+            <img src="/assets/images/premium-devices.webp" class="-mt-[30%]">
+        </div>
+    </section>
+    <section
+        class="w-full flex flex-col items-center min-h-[600px] mx-auto bg-gradient-to-r from-crunchyroll-orange to-crunchyroll-yellow py-10">
+        <h1 #plansTarget class="text-6xl font-bold text-black mb-5">Pick Your Premium</h1>
+        <div class="flex">
+            <cr-premium-plan planName="FAN" [price]="9.99" [perks]="fanPerks" class="mt-5" />
+            <cr-premium-plan planName="MEGA FAN" [price]="12.49" [popular]="true" class="mx-3" [perks]="megaFanPerks" />
+            <cr-premium-plan planName="MEGA FAN" [price]="10.49" [perks]="megaFanDiscountPerks" class="mt-5" />
+        </div>
+
+        <p class="text-xs text-black text-center max-w-2xl mt-5">
+            Plan automatically renews after trial period at the price selected in the plan comparison. You may cancel at
+            any time. Restrictions and other terms apply, including changes to price and content, features.
+        </p>
     </section>
 </main>
 <footer class="w-full flex flex-col mt-20 bg-black justify-center items-center">
@@ -96,7 +133,8 @@
                     class="text-crunchyroll-orange hover:underline hover:text-white transition-colors cursor-pointer">Help
                     Center</a> to learn more.</span>
         </div>
-        <span class="w-full text-white font-medium my-24 px-2">*Device and content availability vary by country or
+        <span #disclaimerTarget class="w-full text-white font-medium my-24 px-2">*Device and content availability vary
+            by country or
             region. Manga is
             only available in
             English.</span>
