@@ -10,3 +10,18 @@ export function convertToSlug(inputString: string): string {
 export function convertCommaDelimitedToArray(inputString: string): string[] {
     return inputString.split(',').map((str) => str.trim());
 }
+
+export function debounce(callback: (...args: any[]) => void, delay: number): (...args: any[]) => void {
+    let timer: NodeJS.Timeout | null;
+  
+    return (...args: any[]) => {
+      if (timer) {
+        clearTimeout(timer);
+      }
+  
+      timer = setTimeout(() => {
+        callback(...args);
+        timer = null;
+      }, delay);
+    };
+  }

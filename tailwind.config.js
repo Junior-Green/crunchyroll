@@ -13,6 +13,7 @@ module.exports = {
     extend: {
       animation: {
         fade: 'fadeIn 500ms ease-in-out',
+        translateDown: 'translateDown 1000ms ease-in-out'
       },
       backgroundImage: {
         'premium-background-desktop': "url('/assets/images/background-desktop.webp')",
@@ -32,10 +33,10 @@ module.exports = {
         },
         translateDown: {
           '100%': {
-            transform: translateY(0)
+            transform: 'translateY(0)'
           },
           '0%': {
-            transform: translateY('-100%')
+            transform: 'translateY(-100%)'
           },
         }
       }),

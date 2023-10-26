@@ -1,2 +1,4 @@
-<cr-navbar [ngClass]="{'hidden' : !renderNavbar}" />
-<router-outlet />
+<div class="relative">
+    <cr-navbar [ngClass]="{'hidden' : !renderNavbar}" class="z-20"/>
+    <router-outlet/>
+</div>
