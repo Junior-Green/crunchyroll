@@ -1,5 +1,5 @@
 <main class="w-full relative">
-    <cr-premium-header />
+    <cr-premium-header *ngIf="showFixedHeader"  (premiumClick)="scrollToPlans()" class="sm:block hidden"/>
     <cr-translucent-header class="w-full absolute"></cr-translucent-header>
     <section class="w-full flex justify-center">
         <div
@@ -112,11 +112,11 @@
     </section>
     <section
         class="w-full flex flex-col items-center min-h-[600px] mx-auto bg-gradient-to-r from-crunchyroll-orange to-crunchyroll-yellow py-10">
-        <h1 #plansTarget class="text-6xl font-bold text-black mb-5">Pick Your Premium</h1>
-        <div class="flex">
-            <cr-premium-plan planName="FAN" [price]="9.99" [perks]="fanPerks" class="mt-5" />
-            <cr-premium-plan planName="MEGA FAN" [price]="12.49" [popular]="true" class="mx-3" [perks]="megaFanPerks" />
-            <cr-premium-plan planName="MEGA FAN" [price]="10.49" [perks]="megaFanDiscountPerks" class="mt-5" />
+        <h1 #plansTarget class="text-3xl md:text-6xl font-bold text-black mb-5 text-center">Pick Your Premium</h1>
+        <div class="flex md:flex-row flex-col">
+            <cr-premium-plan planName="FAN" [price]="9.99" [perks]="fanPerks" class=" mt-0 md:mt-5" />
+            <cr-premium-plan planName="MEGA FAN" [price]="12.49" [popular]="true" class="my-3 md:my-0 md:mx-3" [perks]="megaFanPerks" />
+            <cr-premium-plan planName="MEGA FAN" [price]="10.49" [perks]="megaFanDiscountPerks" class="mt-0 md:mt-5" />
         </div>
 
         <p class="text-xs text-black text-center max-w-2xl mt-5">

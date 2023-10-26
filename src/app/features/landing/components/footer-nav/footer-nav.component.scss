@@ -1,0 +1,30 @@
+$crown-color: #fab818;
+$crown-size: 18px;
+
+.crown {
+    font-size: $crown-size;
+    height: auto;
+    width: $crown-size ;
+    color: $crown-color;
+}
+
+.free-trial-nav:hover {
+    span {
+        text-decoration: underline;
+        color: white;
+    }
+
+    mat-icon {
+        color: white
+    }
+
+}
+
+.nav-list>* {
+    margin-top: 3px;
+    margin-bottom: 3px;
+}
+
+.nav-list li {
+    cursor: pointer;
+}

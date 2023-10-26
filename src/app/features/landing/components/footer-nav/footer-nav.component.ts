@@ -1,21 +1,19 @@
-import { Component, OnDestroy } from '@angular/core';
+import { Component } from '@angular/core';
 import { MatIconRegistry } from '@angular/material/icon';
-import { DomSanitizer, Title } from '@angular/platform-browser';
+import { DomSanitizer } from '@angular/platform-browser';
 import { Unsubscribe } from 'firebase/auth';
 import { FirebaseService } from 'src/app/core/services/firebase.service';
 
 @Component({
-  selector: 'cr-home',
-  templateUrl: './home.component.html',
-  styleUrls: ['./home.component.scss']
+  selector: 'cr-footer-nav',
+  templateUrl: './footer-nav.component.html',
+  styleUrls: ['./footer-nav.component.scss']
 })
-export class HomeComponent implements OnDestroy {
-
+export class FooterNavComponent {
   isPremium: boolean = false;
   private unsub: Unsubscribe | null = null
 
-  constructor(title: Title, firebase: FirebaseService, private matIconRegistry: MatIconRegistry, private domSanitizer: DomSanitizer,) {
-    title.setTitle('Crunchyroll - Watch Popular Anime & Read Manga Online');
+  constructor(private matIconRegistry: MatIconRegistry, private domSanitizer: DomSanitizer, private firebase: FirebaseService) {
     this.unsub = firebase.subscribeToPremiumState((premium) => {
       this.isPremium = premium;
     })

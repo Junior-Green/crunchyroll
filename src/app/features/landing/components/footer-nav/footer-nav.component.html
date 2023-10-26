@@ -1,0 +1,101 @@
+<div class="w-full flex flex-row justify-between">
+    <ul class="flex flex-col nav-list">
+        <h1 class="text-white">Navigation</h1>
+        <li
+            class="text-zinc-400 text-sm font-light transition-colors hover:text-white hover:underline decoration-white">
+            Browse
+            Popular</li>
+        <li
+            class="text-zinc-400 text-sm font-light transition-colors hover:text-white hover:underline decoration-white">
+            Browse
+            Simulcasts</li>
+        <li
+            class="text-zinc-400 text-sm font-light transition-colors hover:text-white hover:underline decoration-white">
+            Browse
+            Manga</li>
+        <li
+            class="text-zinc-400 text-sm font-light transition-colors hover:text-white hover:underline decoration-white">
+            Release
+            Calendar</li>
+        <li
+            class="text-zinc-400 text-sm font-light transition-colors hover:text-white hover:underline decoration-white">
+            News</li>
+        <li
+            class="text-zinc-400 text-sm font-light transition-colors hover:text-white hover:underline decoration-white">
+            Store</li>
+        <li
+            class="text-zinc-400 text-sm font-light transition-colors hover:text-white hover:underline decoration-white">
+            Games</li>
+    </ul>
+    <ul class="flex flex-col nav-list">
+        <h1 class="text-white">Connect With Us</h1>
+        <li
+            class="text-zinc-400 text-sm font-light transition-colors hover:text-white hover:underline decoration-white">
+            Youtube</li>
+        <li
+            class="text-zinc-400 text-sm font-light transition-colors hover:text-white hover:underline decoration-white">
+            Facebook</li>
+        <li
+            class="text-zinc-400 text-sm font-light transition-colors hover:text-white hover:underline decoration-white">
+            Twitter</li>
+        <li
+            class="text-zinc-400 text-sm font-light transition-colors hover:text-white hover:underline decoration-white">
+            Instagram</li>
+        <li
+            class="text-zinc-400 text-sm font-light transition-colors hover:text-white hover:underline decoration-white">
+            Tiktok</li>
+    </ul>
+    <ul class="flex flex-col nav-list">
+        <h1 class="text-white">Crunchyroll</h1>
+        <li *ngIf="!isPremium" class="free-trial-nav" routerLink="/plans">
+            <mat-icon [svgIcon]="'cr-crown'" class="crown transition-colors"></mat-icon>
+            <span class="text-sm font-light transition-color decoration-white text-crunchyroll-yellow">
+                Start a Free Trial
+            </span>
+        </li>
+        <li
+            class="text-zinc-400 text-sm font-light transition-colors hover:text-white hover:underline decoration-white">
+            About</li>
+        <li
+            class="text-zinc-400 text-sm font-light transition-colors hover:text-white hover:underline decoration-white">
+            Help/FAQ</li>
+        <li
+            class="text-zinc-400 text-sm font-light transition-colors hover:text-white hover:underline decoration-white">
+            Terms of Use</li>
+        <li
+            class="text-zinc-400 text-sm font-light transition-colors hover:text-white hover:underline decoration-white">
+            Privacy Policy</li>
+        <li
+            class="text-zinc-400 text-sm font-light transition-colors hover:text-white hover:underline decoration-white">
+            AdChoices</li>
+        <li
+            class="text-zinc-400 text-sm font-light transition-colors hover:text-white hover:underline decoration-white">
+            Your Privacy Choices</li>
+        <li
+            class="text-zinc-400 text-sm font-light transition-colors hover:text-white hover:underline decoration-white">
+            Cookie Consent Tool</li>
+        <li
+            class="text-zinc-400 text-sm font-light transition-colors hover:text-white hover:underline decoration-white">
+            Press Inquiries</li>
+        <li
+            class="text-zinc-400 text-sm font-light transition-colors hover:text-white hover:underline decoration-white">
+            Get The Apps</li>
+        <li
+            class="text-zinc-400 text-sm font-light transition-colors hover:text-white hover:underline decoration-white">
+            Reedem Gift Card</li>
+        <li
+            class="text-zinc-400 text-sm font-light transition-colors hover:text-white hover:underline decoration-white">
+            Jobs</li>
+    </ul>
+    <ul class="flex-col nav-list md:flex hidden">
+        <h1 class="text-white">Account</h1>
+        <li
+            class="text-zinc-400 text-sm font-light transition-colors hover:text-white hover:underline decoration-white">
+            <a routerLink="/auth/register">Create Account</a>
+        </li>
+        <li routerLink="/auth/login"
+            class="text-zinc-400 text-sm font-light transition-colors hover:text-white hover:underline decoration-white">
+            <a>Log In</a>
+        </li>
+    </ul>
+</div>

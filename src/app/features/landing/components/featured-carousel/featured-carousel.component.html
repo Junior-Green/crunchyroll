@@ -1,0 +1,48 @@
+<ng-container [ngSwitch]="loadingData">
+  <div *ngSwitchCase="true"
+    class="w-full h-full max-h-[750px] md:max-h-[500px] px-[5%] py-[5%] flex flex-col justify-end md:justify-center md:items-start items-center">
+    <ngx-skeleton-loader animation="pulse" appearance="circle" [theme]="{ 
+            'border-radius.px': 5,
+            'width.px': 200,
+            'height.px': 125,
+            'background': '	#5A5A5A'
+          }" />
+    <ngx-skeleton-loader animation="pulse" appearance="line" [theme]="{ 
+              'border-radius.px': 3,
+              'width.px': 200,
+              'background': '#5A5A5A'
+            }" />
+    <ngx-skeleton-loader class="w-[250px] md:block hidden" animation="pulse" appearance="line" count="3" [theme]="{ 
+                'border-radius.px': 2,
+                'width.px': 250,
+                'height.px': 15,
+                'margin.px': 2,
+                'background': '#5A5A5A'
+              }" />
+    <ngx-skeleton-loader animation="pulse" appearance="line" [theme]="{ 
+                'border-radius.px': 5,
+                'width.px': 75,
+                'height.px': 25,
+                'margin.px': 5,
+                'background': '#5A5A5A'
+              }" />
+  </div>
+  <carousel *ngSwitchCase="false" class="z-0" [isAnimated]="true" [interval]="10000">
+    <slide *ngFor="let show of shows">
+      <div class="image-container">
+        <picture>
+          <source [srcset]="show.imageUrls.covers.landscape" media="(min-width: 768px)">
+          <source [srcset]="show.imageUrls.covers.portrait" media="(max-width: 768px)">
+          <img [src]="show.imageUrls.covers.landscape" class="w-full max-h-[750px] object-cover">
+        </picture>
+      </div>
+      <div class="flex flex-col justify-start h-full items-start pt-[10%] carousel-caption">
+        <img [src]="show.imageUrls.logo" class="w-1/4 h-auto" [routerLink]="">
+        <span class="text-sm text-zinc-400 mt-2">{{getShowDescriptor(show.sub, show.dub, show.genres)}}</span>
+        <p class="text-gray-300 text-left text-ellipsis w-1/3 overflow-hidden line-clamp-4 mt-2 font-light">
+          {{show.description}}
+        </p>
+      </div>
+    </slide>
+  </carousel>
+</ng-container>
