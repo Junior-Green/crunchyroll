@@ -6,6 +6,7 @@ import { SharedModule } from 'src/app/shared/shared.module';
 import { CommonModule } from '@angular/common';
 import { FooterNavComponent } from './components/footer-nav/footer-nav.component';
 import { FeaturedCarouselComponent } from './components/featured-carousel/featured-carousel.component';
+import { RouterModule } from '@angular/router';
 
 
 @NgModule({
@@ -17,7 +18,7 @@ import { FeaturedCarouselComponent } from './components/featured-carousel/featur
   imports: [
     CommonModule,
     LandingRoutingModule,
-    SharedModule
+    SharedModule,
   ]
 })
 export class LandingModule { }

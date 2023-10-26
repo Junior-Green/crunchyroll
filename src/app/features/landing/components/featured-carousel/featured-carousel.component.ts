@@ -34,21 +34,19 @@ export class FeaturedCarouselComponent {
       res += "Dubbed "
     }
 
-    if (genres.length > 1) {
+    if (genres.length > 0) {
       res += " ◆ "
 
-      if (genres.at(0)) {
-        res += `${genres.at(0)}`
+      genres.forEach((genre, index) => {
+        if (index === 0) {
+          res += `${genre}`
+        }
+        else {
+          res += `, ${genre}`
+        }
       }
-      if (genres.at(1)) {
-        res += `, ${genres.at(1)}`
-      }
-      if (genres.at(2)) {
-        res += `, ${genres.at(2)}`
-      }
+      )
     }
-
-
     return res
   }
 }

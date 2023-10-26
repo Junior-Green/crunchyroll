@@ -47,6 +47,7 @@ import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
     TranslucentHeaderComponent,
     CheckBoxComponent,
     CarouselModule,
+    TooltipModule,
     NgxSkeletonLoaderModule,
   ]
 })
