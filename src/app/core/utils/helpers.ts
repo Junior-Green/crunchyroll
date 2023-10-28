@@ -29,3 +29,17 @@ export function debounce(callback: (...args: any[]) => void, delay: number): (..
 export function randomBoolean(): boolean {
   return Math.random() < 0.5
 }
+
+export function getRandomNumberBetween(x: number, y: number): number {
+  if (x >= y) {
+    throw new Error("Invalid range. 'x' must be less than 'y'.");
+  }
+
+  // Generate a random decimal number between 0 and 1
+  const randomDecimal = Math.random();
+
+  // Scale and shift the random decimal to your desired range [x, y]
+  const randomNumber = x + randomDecimal * (y - x);
+
+  return randomNumber;
+}

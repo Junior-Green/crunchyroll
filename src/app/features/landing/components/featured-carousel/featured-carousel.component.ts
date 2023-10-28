@@ -16,8 +16,6 @@ export class FeaturedCarouselComponent {
     service.getFeaturedShows().then((shows) => {
       this.shows = shows
       this.loadingData = false
-
-      console.log(shows)
     })
   }
 

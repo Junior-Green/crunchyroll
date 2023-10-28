@@ -2,7 +2,7 @@
 import { Injectable, OnDestroy } from '@angular/core';
 import { Unsubscribe, User, UserCredential, createUserWithEmailAndPassword, getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import { DocumentReference, Timestamp, collection, doc, getDoc, getDocs, getFirestore, onSnapshot, query, setDoc } from "firebase/firestore"
-import { getDownloadURL, getStorage, ref } from "firebase/storage"
+import { getDownloadURL, getStorage, listAll, ref } from "firebase/storage"
 import { firebaseApp } from 'src/main';
 import Show from '../models/show.model';
 import { environment } from 'src/environments/environment';
@@ -96,7 +96,7 @@ export class FirebaseService implements OnDestroy {
 
   addShow(show: Show): void {
     if (environment.production) {
-      throw new Error('This method should not be allowed to be invoked in production')
+      throw new Error('This method is not be allowed to be invoked in production build')
     }
 
     setDoc(doc(this.firestore, 'shows', convertToSlug(show.title)), {
@@ -208,21 +208,17 @@ export class FirebaseService implements OnDestroy {
     }
   }
 
-  ngOnDestroy(): void {
-    this.unsub()
-  }
-
   async getShowGroups(): Promise<ShowGroup[]> {
     const q = query(collection(this.firestore, "landing-show-groups"))
     const querySnapshot = await getDocs(q)
     const showGroups: ShowGroup[] = []
     const cache: Map<string, Show> = new Map<string, Show>()
 
-    querySnapshot.forEach(async (doc) => {
+    for await (const doc of querySnapshot.docs) {
       const data = doc.data()
       const showRefs: DocumentReference[] = data['shows']
 
-      const shows = await Promise.all(showRefs.map<Promise<Show>>(async (ref) => {
+      await Promise.all(showRefs.map<Promise<Show>>(async (ref) => {
         if (cache.has(ref.id)) {
           return cache.get(ref.id)!
         }
@@ -248,15 +244,32 @@ export class FirebaseService implements OnDestroy {
         }
         cache.set(ref.id, show)
         return show
-      }))
-
-      showGroups.push({
-        title: data['title'],
-        subtitle: data['subtitle'],
-        shows: shows,
+      })).then((shows) => {
+        showGroups.push({
+          title: data['title'],
+          subtitle: data['subtitle'],
+          shows: shows,
+        })
+      }).catch((err) => {
+        console.log(err)
       })
-    })
-
+    }
+    console.log(cache)
     return showGroups
+  }
+
+  async getLandingAdverts(): Promise<string[]> {
+    const advertsRef = ref(this.storage, 'adverts')
+ 
+    return Promise.all(await listAll(advertsRef).then((res) => {
+      return res.items.map((advert) => {
+        return getDownloadURL(advert)
+      })
+    }))
+
+  }
+
+  ngOnDestroy(): void {
+    this.unsub()
   }
 }
