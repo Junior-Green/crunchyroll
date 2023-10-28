@@ -7,13 +7,15 @@ import { CommonModule } from '@angular/common';
 import { FooterNavComponent } from './components/footer-nav/footer-nav.component';
 import { FeaturedCarouselComponent } from './components/featured-carousel/featured-carousel.component';
 import { RouterModule } from '@angular/router';
+import { ShowGroupComponent } from './components/show-group/show-group.component';
 
 
 @NgModule({
   declarations: [
     HomeComponent,
     FooterNavComponent,
-    FeaturedCarouselComponent
+    FeaturedCarouselComponent,
+    ShowGroupComponent
   ],
   imports: [
     CommonModule,

@@ -1,13 +1,14 @@
 
 import { Injectable, OnDestroy } from '@angular/core';
 import { Unsubscribe, User, UserCredential, createUserWithEmailAndPassword, getAuth, signInWithEmailAndPassword } from "firebase/auth";
-import { DocumentReference, Timestamp, doc, getDoc, getFirestore, onSnapshot, setDoc } from "firebase/firestore"
+import { DocumentReference, Timestamp, collection, doc, getDoc, getDocs, getFirestore, onSnapshot, query, setDoc } from "firebase/firestore"
 import { getDownloadURL, getStorage, ref } from "firebase/storage"
 import { firebaseApp } from 'src/main';
 import Show from '../models/show.model';
 import { environment } from 'src/environments/environment';
 import { convertToSlug } from '../utils/helpers';
 import ShowImages from '../models/show-images.model';
+import { ShowGroup } from '../models/show-group.model';
 
 @Injectable({
   providedIn: 'root'
@@ -209,5 +210,53 @@ export class FirebaseService implements OnDestroy {
 
   ngOnDestroy(): void {
     this.unsub()
+  }
+
+  async getShowGroups(): Promise<ShowGroup[]> {
+    const q = query(collection(this.firestore, "landing-show-groups"))
+    const querySnapshot = await getDocs(q)
+    const showGroups: ShowGroup[] = []
+    const cache: Map<string, Show> = new Map<string, Show>()
+
+    querySnapshot.forEach(async (doc) => {
+      const data = doc.data()
+      const showRefs: DocumentReference[] = data['shows']
+
+      const shows = await Promise.all(showRefs.map<Promise<Show>>(async (ref) => {
+        if (cache.has(ref.id)) {
+          return cache.get(ref.id)!
+        }
+
+        const showSnap = await getDoc(ref)
+        const showData = showSnap.data()
+
+        if (showData === undefined) {
+          return Promise.reject('Error retrieving data')
+        }
+
+        const show: Show = {
+          showId: ref.id,
+          title: showData['title'],
+          audio: showData['audio'],
+          description: showData['description'],
+          dub: showData['dub'],
+          sub: showData['sub'],
+          subtitles: showData['subtitles'],
+          genres: showData['genres'],
+          publisher: showData['publisher'],
+          imageUrls: await this.getShowImages(ref.id)
+        }
+        cache.set(ref.id, show)
+        return show
+      }))
+
+      showGroups.push({
+        title: data['title'],
+        subtitle: data['subtitle'],
+        shows: shows,
+      })
+    })
+
+    return showGroups
   }
 }
