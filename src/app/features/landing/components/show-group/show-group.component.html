@@ -1,1 +1,21 @@
-<p>show-group works!</p>
+<section>
+    <ng-container *ngSwitch="loading">
+        <div *ngSwitchCase="false">
+            <h1>{{showGroup?.title}}</h1>
+            <h2></h2>
+            <carousel>
+
+            </carousel>
+        </div>
+        <div class="w-full grid md:grid-cols-5 grid-cols-4 grid-rows-1 justify-evenly h-60 gap-x-14"
+            *ngSwitchCase="true">
+            <ngx-skeleton-loader *ngFor="let _ of [0,0,0,0,0]" class="w-full h-full" animation="pulse"
+                appearance="circle" [theme]="{ 
+                    'height': '100%',
+                    'width': '100%',
+                    'border-radius.px': 5,
+                    'background': '#0E0E0E'
+                  }" />
+        </div>
+    </ng-container>
+</section>
