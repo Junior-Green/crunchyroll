@@ -1,21 +1,41 @@
-<section>
-    <ng-container *ngSwitch="loading">
-        <div *ngSwitchCase="false">
-            <h1>{{showGroup?.title}}</h1>
-            <h2></h2>
-            <carousel>
+<section class="my-5 w-full px-16">
+    <ng-container [ngSwitch]="loading">
+        <ng-container *ngIf="showGroupPromise | async as showGroup">
+            <div *ngSwitchCase="false" class="">
+                <h1 class="text-white text-3xl font-medium">{{showGroup.title}}</h1>
+                <h2 class="text-zinc-500 mt-2 mb-3">{{showGroup.subtitle}}</h2>
+                <carousel class="w-full" [itemsPerSlide]="5" [showIndicators]="false" [noWrap]="true" [interval]="0"
+                    [singleSlideOffset]="true" [isAnimated]="true">
+                    <slide *ngFor="let show of showGroup.shows" class="pr-5">
+                        <img [src]="show.imageUrls.covers.portrait">
+                        <div class="pr-2">
+                            <h1 class="text-white text-sm mt-2">
+                                {{show.title}}
+                            </h1>
+                            <h2>
 
-            </carousel>
-        </div>
-        <div class="w-full grid md:grid-cols-5 grid-cols-4 grid-rows-1 justify-evenly h-60 gap-x-14"
-            *ngSwitchCase="true">
-            <ngx-skeleton-loader *ngFor="let _ of [0,0,0,0,0]" class="w-full h-full" animation="pulse"
-                appearance="circle" [theme]="{ 
+                            </h2>
+                        </div>
+                    </slide>
+                </carousel>
+            </div>
+        </ng-container>
+        <div *ngSwitchCase="true" class="w-full flex-col">
+            <ngx-skeleton-loader animation="pulse" [theme]="{ 
+            'width.px': '300',
+            'border-radius.px': 5,
+            'background': '#0E0E0E'
+          }" />
+            <div class="w-full grid md:grid-cols-5 grid-cols-4 grid-rows-1 justify-evenly h-64 gap-x-7">
+                <ngx-skeleton-loader *ngFor="let _ of [0,0,0,0,0]" class="w-full h-full" animation="pulse"
+                    appearance="circle" [theme]="{ 
                     'height': '100%',
                     'width': '100%',
                     'border-radius.px': 5,
                     'background': '#0E0E0E'
                   }" />
+            </div>
         </div>
+
     </ng-container>
 </section>

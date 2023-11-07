@@ -12,44 +12,72 @@ import { ShowGroup } from 'src/app/core/models/show-group.model';
 })
 export class ShowGroupComponent {
   loading = true;
-  showGroup: ShowGroup | undefined;
-  advertUrl: string | undefined;
-  showHighlight1: boolean;
-  showHighlight2: boolean;
-  highlight1: Show | undefined;
-  highlight2: Show | undefined;
+  advertPromise: Promise<string>;
+  highlight1Promise: Promise<Show>;
+  highlight2Promise: Promise<Show>;
+  showGroupPromise: Promise<ShowGroup>;
 
   constructor(service: ShowGroupService) {
-    this.showHighlight1 = randomBoolean()
-    this.showHighlight2 = randomBoolean()
+    let showGroupResolve: (value: ShowGroup | PromiseLike<ShowGroup>) => void;
+    let showGroupReject: (reason?: any) => void;
+
+    let highlight1Resolve: (value: Show | PromiseLike<Show>) => void;
+    let highlight1Reject: (reason?: any) => void;
+
+    let highlight2Resolve: (value: Show | PromiseLike<Show>) => void;
+    let highlight2Reject: (reason?: any) => void;
+
+    let advertResolve: (value: string | PromiseLike<string>) => void;
+    let advertReject: (reason?: any) => void;
+
+    this.showGroupPromise = new Promise(function (resolve, reject) {
+      showGroupResolve = resolve
+      showGroupReject = reject
+    })
+    this.highlight1Promise = new Promise(function (resolve, reject) {
+      highlight1Resolve = resolve
+      highlight1Reject = reject
+    })
+    this.advertPromise = new Promise(function (resolve, reject) {
+      advertResolve = resolve
+      advertReject = reject
+    })
+    this.highlight2Promise = new Promise(function (resolve, reject) {
+      highlight2Resolve = resolve
+      highlight2Reject = reject
+    })
+
+    let show1: Show | null;
+    let show2: Show | null;
 
     service.getShowGroup().then(group => {
-      this.showGroup = group;
-      const show1 = service.pickRandomShow(group.shows)
-      if (show1 === null) {
-        this.showHighlight1 = false;
+      showGroupResolve(group)
+
+      if (randomBoolean()) {
+        show1 = service.pickRandomShow(group.shows)
+        show1 === null ? highlight1Reject() : highlight1Resolve(show1)
       }
-      if (this.showGroup.shows.length < 2) {
-        this.showHighlight2 = false
-      }
-      if (this.showHighlight2) {
-        let show2 = service.pickRandomShow(group.shows)
+      if (randomBoolean() && group.shows.length > 1) {
+        show2 = service.pickRandomShow(group.shows)
         while (show2?.showId === show1?.showId) {
           show2 = service.pickRandomShow(group.shows)
         }
-        if (!show2) {
-          this.showHighlight2 = false;
-        }
+        show2 === null ? highlight2Reject() : highlight2Resolve(show2)
       }
       if (randomBoolean()) {
         service.getAdvertUrl().then(url => {
-          this.advertUrl = url;
-          this.loading = false;
+          advertResolve(url)
+        }).catch((reason) => {
+          advertReject(reason)
+        }).finally(() => {
+          this.loading = false
         })
       }
       else {
         this.loading = false;
       }
+    }).catch((err) => {
+      showGroupReject(err)
     })
   }
 }

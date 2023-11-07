@@ -19,23 +19,23 @@ export class FeaturedCarouselComponent {
     })
   }
 
-  getShowDescriptor(isSub: boolean, isDub: boolean, genres: ("Action" | "Adventure" | "Comedy" | "Drama" | "Fantasy" | "Music" | "Romance" | "Sci-Fi" | "Seinen" | "Shojo" | "Shonen" | "Slice of life" | "Sports" | "Supernatural" | "Thriller")[]): string {
+  getShowDescriptor(show: Show): string {
     let res = ""
 
-    if (isSub && isDub) {
+    if (show.sub && show.dub) {
       res += "Sub | Dub "
     }
-    else if (isSub) {
+    else if (show.sub) {
       res += "Subtitled "
     }
     else {
       res += "Dubbed "
     }
 
-    if (genres.length > 0) {
+    if (show.genres.length > 0) {
       res += " ◆ "
 
-      genres.forEach((genre, index) => {
+      show.genres.forEach((genre, index) => {
         if (index === 0) {
           res += `${genre}`
         }
