@@ -254,7 +254,6 @@ export class FirebaseService implements OnDestroy {
         console.log(err)
       })
     }
-    console.log(cache)
     return showGroups
   }
 

@@ -41,7 +41,7 @@
         <a [routerLink]="'/series/' + show.showId" class="flex justify-center md:justify-start">
           <img [src]="show.imageUrls.logo" class="w-1/2 md:w-1/3 lg:w-1/4 h-auto">
         </a>
-        <span class="text-sm text-zinc-400 mt-2">{{getShowDescriptor(show)}}</span>
+        <span class="text-sm text-zinc-400 mt-2">{{getFullShowDescriptor(show)}}</span>
         <p class="text-gray-300 text-left text-ellipsis w-1/3 overflow-hidden hidden lg:line-clamp-4 mt-2 ">
           {{show.description}}
         </p>

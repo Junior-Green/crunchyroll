@@ -1,8 +1,11 @@
 import { Component } from '@angular/core';
 import Show from 'src/app/core/models/show.model';
-import { randomBoolean } from 'src/app/core/utils/helpers';
+import { randomBoolean, roundToDecimal } from 'src/app/core/utils/helpers';
 import { ShowGroupService } from './show-group.service';
 import { ShowGroup } from 'src/app/core/models/show-group.model';
+import { MatIconRegistry } from '@angular/material/icon';
+import { DomSanitizer } from '@angular/platform-browser';
+import { ShowService } from 'src/app/core/services/show.service';
 
 @Component({
   selector: 'cr-show-group',
@@ -11,13 +14,14 @@ import { ShowGroup } from 'src/app/core/models/show-group.model';
   providers: [ShowGroupService]
 })
 export class ShowGroupComponent {
+
   loading = true;
   advertPromise: Promise<string>;
   highlight1Promise: Promise<Show>;
   highlight2Promise: Promise<Show>;
   showGroupPromise: Promise<ShowGroup>;
 
-  constructor(service: ShowGroupService) {
+  constructor(service: ShowGroupService, private showService: ShowService) {
     let showGroupResolve: (value: ShowGroup | PromiseLike<ShowGroup>) => void;
     let showGroupReject: (reason?: any) => void;
 
@@ -79,5 +83,13 @@ export class ShowGroupComponent {
     }).catch((err) => {
       showGroupReject(err)
     })
+  }
+
+  getShowDescriptor(show: Show): string {
+    return this.showService.getShowDescriptor(show)
+  }
+
+  calculateShowRating(show: Show): number {
+    return this.showService.calculateShowRating(show)
   }
 }

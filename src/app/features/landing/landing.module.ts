@@ -6,9 +6,8 @@ import { SharedModule } from 'src/app/shared/shared.module';
 import { CommonModule } from '@angular/common';
 import { FooterNavComponent } from './components/footer-nav/footer-nav.component';
 import { FeaturedCarouselComponent } from './components/featured-carousel/featured-carousel.component';
-import { RouterModule } from '@angular/router';
 import { ShowGroupComponent } from './components/show-group/show-group.component';
-import { ShowGroupCarouselShowComponent } from './components/show-group-carousel-show/show-group-carousel-show.component';
+import { ShowGroupFeaturedComponent } from './components/show-group-featured/show-group-featured.component';
 
 
 @NgModule({
@@ -17,7 +16,7 @@ import { ShowGroupCarouselShowComponent } from './components/show-group-carousel
     FooterNavComponent,
     FeaturedCarouselComponent,
     ShowGroupComponent,
-    ShowGroupCarouselShowComponent
+    ShowGroupFeaturedComponent,
   ],
   imports: [
     CommonModule,
