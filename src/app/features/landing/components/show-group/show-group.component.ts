@@ -1,11 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, HostListener } from '@angular/core';
 import Show from 'src/app/core/models/show.model';
-import { randomBoolean, roundToDecimal } from 'src/app/core/utils/helpers';
+import { randomBoolean } from 'src/app/core/utils/helpers';
 import { ShowGroupService } from './show-group.service';
 import { ShowGroup } from 'src/app/core/models/show-group.model';
-import { MatIconRegistry } from '@angular/material/icon';
-import { DomSanitizer } from '@angular/platform-browser';
 import { ShowService } from 'src/app/core/services/show.service';
+import { screenSizes } from 'src/app/core/constants/constants';
 
 @Component({
   selector: 'cr-show-group',
@@ -14,14 +13,17 @@ import { ShowService } from 'src/app/core/services/show.service';
   providers: [ShowGroupService]
 })
 export class ShowGroupComponent {
-
   loading = true;
   advertPromise: Promise<string>;
   highlight1Promise: Promise<Show>;
   highlight2Promise: Promise<Show>;
   showGroupPromise: Promise<ShowGroup>;
+  screenWidth: number;
+  thresholdWidth = screenSizes.medium;
 
   constructor(service: ShowGroupService, private showService: ShowService) {
+    this.screenWidth = window.innerWidth
+
     let showGroupResolve: (value: ShowGroup | PromiseLike<ShowGroup>) => void;
     let showGroupReject: (reason?: any) => void;
 
@@ -83,6 +85,11 @@ export class ShowGroupComponent {
     }).catch((err) => {
       showGroupReject(err)
     })
+  }
+
+  @HostListener('window:resize', ['$event'])
+  onResize(_: Event): void {
+    this.screenWidth = window.innerWidth;
   }
 
   getShowDescriptor(show: Show): string {

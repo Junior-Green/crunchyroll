@@ -51,4 +51,9 @@ export class ShowGroupService {
 
     return shows.at(getRandomNumberBetween(0, shows.length))!
   }
+
+  async showGroupsRemaining(): Promise<number> {
+    await this.showGroupsPromise
+    return this.showGroups.length
+  }
 }

@@ -4,40 +4,82 @@
             <div *ngSwitchCase="false">
                 <h1 class="text-white text-3xl font-medium">{{showGroup.title}}</h1>
                 <h2 class="text-zinc-500 mt-2 mb-3">{{showGroup.subtitle}}</h2>
-                <carousel class="w-full show-group-carousel" [itemsPerSlide]="5" [showIndicators]="false"
-                    [noWrap]="true" [interval]="0" [singleSlideOffset]="true" [isAnimated]="true">
-                    <slide *ngFor="let show of showGroup.shows" class="pr-5 slide"
-                        [routerLink]="'/series/' + show.showId">
-                        <img [src]="show.imageUrls.covers.portrait">
-                        <div class="pr-2 heading-container">
-                            <h1 class="text-white text-sm mt-2">
-                                {{show.title}}
-                            </h1>
-                            <h2 class="text-zinc-400 text-sm mt-2">
-                                {{getShowDescriptor(show)}}
-                            </h2>
-                        </div>
-                        <div
-                            class="carousel-caption bg-zinc-900 transition-opacity bg-opacity-95 flex flex-col justify-between p-3 cursor-pointer text-sm text-left">
-                            <div>
-                                <h1 class="text-white">
+                <ng-container [ngSwitch]="screenWidth <= thresholdWidth">
+                    <carousel *ngSwitchCase="false" class="w-full show-group-carousel" [itemsPerSlide]="5"
+                        [showIndicators]="false" [noWrap]="true" [interval]="0" [singleSlideOffset]="true"
+                        [isAnimated]="true">
+                        <slide *ngFor="let show of showGroup.shows" class="pr-5 slide"
+                            [routerLink]="'/series/' + show.showId">
+                            <img [src]="show.imageUrls.covers.portrait">
+                            <div class="pr-2 heading-container">
+                                <h1 class="text-white text-sm mt-2">
                                     {{show.title}}
                                 </h1>
-                                <div class="flex text-zinc-500 items-center my-2">
-                                    <span>{{calculateShowRating(show)}}</span>
-                                    <mat-icon class="star-icon mx-1">star</mat-icon>
-                                    <span>{{'(' + (show.reviews ? show.reviews.length : '0') + ')'}}</span>
-                                </div>
-                                <p class="text-white line-clamp-6">{{show.description}}</p>
+                                <h2 class="text-zinc-400 text-sm mt-2">
+                                    {{getShowDescriptor(show)}}
+                                </h2>
                             </div>
-                            <nav class="flex buttons text-crunchyroll-orange items-center">
-                                <mat-icon tooltip="Watch Now" container="body">play_arrow</mat-icon>
-                                <mat-icon class="mx-2" tooltip="Add to Watchlist" container="body">bookmark</mat-icon>
-                                <mat-icon tooltip="Add to Crunchylist" container="body">add</mat-icon>
-                            </nav>
-                        </div>
-                    </slide>
-                </carousel>
+                            <div
+                                class="carousel-caption bg-zinc-900 transition-opacity bg-opacity-95 flex flex-col justify-between p-3 cursor-pointer text-sm text-left">
+                                <div>
+                                    <h1 class="text-white">
+                                        {{show.title}}
+                                    </h1>
+                                    <div class="flex text-zinc-500 items-center my-2">
+                                        <span>{{calculateShowRating(show)}}</span>
+                                        <mat-icon class="star-icon mx-1">star</mat-icon>
+                                        <span>{{'(' + (show.reviews ? show.reviews.length : '0') + ')'}}</span>
+                                    </div>
+                                    <p class="text-white line-clamp-6">{{show.description}}</p>
+                                </div>
+                                <nav class="flex buttons text-crunchyroll-orange items-center">
+                                    <mat-icon tooltip="Watch Now" container="body">play_arrow</mat-icon>
+                                    <mat-icon class="mx-2" tooltip="Add to Watchlist"
+                                        container="body">bookmark</mat-icon>
+                                    <mat-icon tooltip="Add to Crunchylist" container="body">add</mat-icon>
+                                </nav>
+                            </div>
+                        </slide>
+                    </carousel>
+                    <carousel *ngSwitchCase="true" class="w-full show-group-carousel" [itemsPerSlide]="3"
+                        [showIndicators]="false" [noWrap]="true" [interval]="0" [singleSlideOffset]="true"
+                        [isAnimated]="true">
+                        <slide *ngFor="let show of showGroup.shows" class="pr-5 slide"
+                            [routerLink]="'/series/' + show.showId">
+                            <img [src]="show.imageUrls.covers.portrait">
+                            <div class="pr-2 heading-container">
+                                <h1 class="text-white text-sm mt-2">
+                                    {{show.title}}
+                                </h1>
+                                <h2 class="text-zinc-400 text-sm mt-2">
+                                    {{getShowDescriptor(show)}}
+                                </h2>
+                            </div>
+                            <div
+                                class="carousel-caption bg-zinc-900 transition-opacity bg-opacity-95 flex flex-col justify-between p-3 cursor-pointer text-sm text-left">
+                                <div>
+                                    <h1 class="text-white">
+                                        {{show.title}}
+                                    </h1>
+                                    <div class="flex text-zinc-500 items-center my-2">
+                                        <span>{{calculateShowRating(show)}}</span>
+                                        <mat-icon class="star-icon mx-1">star</mat-icon>
+                                        <span>{{'(' + (show.reviews ? show.reviews.length : '0') + ')'}}</span>
+                                    </div>
+                                    <p class="text-white line-clamp-6">{{show.description}}</p>
+                                </div>
+                                <nav class="flex buttons text-crunchyroll-orange items-center">
+                                    <mat-icon tooltip="Watch Now" container="body">play_arrow</mat-icon>
+                                    <mat-icon class="mx-2" tooltip="Add to Watchlist"
+                                        container="body">bookmark</mat-icon>
+                                    <mat-icon tooltip="Add to Crunchylist" container="body">add</mat-icon>
+                                </nav>
+                            </div>
+                        </slide>
+                    </carousel>
+                </ng-container>
+
+
                 <div class="mt-5 flex flex-col">
                     <cr-show-group-featured *ngIf="highlight1Promise | async as highlight1" [show]="highlight1" />
                     <cr-show-group-featured *ngIf="highlight2Promise | async as highlight2" [show]="highlight2" />

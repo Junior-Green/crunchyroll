@@ -1,4 +1,5 @@
-import { Component, Input } from '@angular/core';
+import { Component, HostListener, Input } from '@angular/core';
+import { screenSizes } from 'src/app/core/constants/constants';
 import Show from 'src/app/core/models/show.model';
 import { ShowService } from 'src/app/core/services/show.service';
 

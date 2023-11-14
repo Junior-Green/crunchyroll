@@ -6,7 +6,7 @@ import { authGuard } from './core/guards/auth.guard';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
-  { path: 'vidoes', loadChildren: () => import('./features/videos/videos.module').then((m) => m.VideosModule) },
+  { path: 'videos', loadChildren: () => import('./features/videos/videos.module').then((m) => m.VideosModule) },
   { path: 'auth', loadChildren: () => import('./features/auth/auth.module').then((m) => m.AuthModule), canActivate: [authGuard] },
   { path: 'plans', loadChildren: () => import('./features/premium/premium.module').then((m) => m.PremiumModule) },
   { path: 'series', loadChildren: () => import('./features/series/series.module').then((m) => m.SeriesModule) },
