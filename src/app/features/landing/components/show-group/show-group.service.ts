@@ -8,20 +8,25 @@ import { getRandomNumberBetween } from 'src/app/core/utils/helpers';
   providedIn: 'root'
 })
 export class ShowGroupService {
-  showGroupsPromise: Promise<void>;
-  showGroups: ShowGroup[] = []
-  advertsPromise: Promise<void>;
-  adverts: string[] = []
+  private showGroupsPromise: Promise<void>;
+  private showGroups: ShowGroup[] = []
+  private showGroupsCache: ShowGroup[] = []
+  private advertsPromise: Promise<void>;
+  private adverts: string[] = []
+  private advertsCache: string[] = []
+ 
 
   constructor(firebase: FirebaseService) {
     this.showGroupsPromise = firebase.getShowGroups().then((groups) => {
       this.showGroups = groups;
+      this.showGroupsCache = groups
     }).catch((err) => {
       console.error(err)
     })
 
     this.advertsPromise = firebase.getLandingAdverts().then((landingAdverts) => {
       this.adverts = landingAdverts
+      this.advertsCache = landingAdverts
     }).catch((err) => {
       console.error(err)
     })
@@ -30,19 +35,38 @@ export class ShowGroupService {
   async getShowGroup(): Promise<ShowGroup> {
     await this.showGroupsPromise
     if (this.showGroups.length === 0) {
-      return Promise.reject('Empty array...')
+      return Promise.reject('No more showgroups available...')
     }
     const randomIndex = getRandomNumberBetween(0, this.showGroups.length)
-    return this.showGroups.splice(randomIndex, 1).at(0)!
+    const showGroup = this.showGroups.at(randomIndex)
+
+    this.showGroups = this.showGroups.filter((_, index) => {
+      return randomIndex !== index
+    })
+
+    return showGroup!
   }
 
   async getAdvertUrl(): Promise<string> {
     await this.advertsPromise
     if (this.adverts.length === 0) {
-      return Promise.reject('Empty array...')
+      return Promise.reject('No more adverts available...')
     }
     const randomIndex = getRandomNumberBetween(0, this.adverts.length)
-    return this.adverts.splice(randomIndex, 1).at(0)!
+    const advert = this.adverts.at(randomIndex)
+    this.adverts = this.adverts.filter((_, index) => {
+      return randomIndex !== index
+    })
+
+    return advert!
+  }
+
+  async refetch(): Promise<void> {
+    await this.showGroupsPromise
+    await this.advertsPromise
+
+    this.showGroups = this.showGroupsCache.filter(() => true)
+    this.adverts = this.advertsCache.filter(() => true)
   }
 
   pickRandomShow(shows: Show[]): Show | null {

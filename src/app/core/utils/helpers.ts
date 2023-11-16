@@ -39,9 +39,9 @@ export function getRandomNumberBetween(x: number, y: number): number {
   const randomDecimal = Math.random();
 
   // Scale and shift the random decimal to your desired range [x, y]
-  const randomNumber = x + randomDecimal * (y - x);
+  const randomNumber = x + randomDecimal * ((y - 1) - x);
 
-  return randomNumber;
+  return Math.round(randomNumber);
 }
 
 export function roundToDecimal(num: number, precision: number): number {

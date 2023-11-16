@@ -10,7 +10,6 @@ import { screenSizes } from 'src/app/core/constants/constants';
   selector: 'cr-show-group',
   templateUrl: './show-group.component.html',
   styleUrls: ['./show-group.component.scss'],
-  providers: [ShowGroupService]
 })
 export class ShowGroupComponent {
   loading = true;

@@ -48,9 +48,6 @@ export class PremiumLandingComponent implements OnDestroy, AfterViewInit {
       const plansScrollPos: number = this.plansRef?.nativeElement.offsetTop
       const currScrollPos: number = document.body.scrollTop
 
-      console.log(plansScrollPos)
-      console.log(currScrollPos)
-
       if (currScrollPos > 70 && currScrollPos < plansScrollPos) {
         console.log('helloo')
         this.showFixedHeader = true

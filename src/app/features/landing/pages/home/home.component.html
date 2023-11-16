@@ -1,11 +1,14 @@
 <main class="w-full h-full relative z-0">
     <cr-featured-carousel class="w-full h-80 relative z-0" />
     <div #showGroups class="flex flex-col relative z-10 show-groups-container">
-        <cr-show-group classs="w-full"></cr-show-group>
+        <ng-template #showGroupsContainer>
+
+        </ng-template>
     </div>
     <ng-container [ngSwitch]="pushShowGroups">
-        <mat-progress-spinner *ngSwitchCase="true" mode="indeterminate" diameter="40" strokeWidth="5"
-            class="mt-3 mx-auto" />
+        <div #spinner *ngSwitchCase="true">
+            <mat-progress-spinner mode="indeterminate" diameter="60" strokeWidth="5" class="mt-3 mx-auto" />
+        </div>
         <div *ngSwitchCase="false" class="flex flex-col mx-auto justify-center items-center w-full px-3">
             <img src="/assets/images/yuzu.png" class="max-w-xs">
             <p class="text-white text-center text-xl my-3 max-w-xs">Still looking for something to watch?
@@ -14,7 +17,6 @@
                 <cr-button buttonStyle="outline" labelColor="#F47521" backgroundColor="#F47521" label="VIEW ALL"
                     class="w-full"></cr-button>
             </a>
-
         </div>
     </ng-container>
     <footer class="w-full flex flex-col bg-gradient-to-t from-cyan-950 to-black py-10 justify-center items-center">
