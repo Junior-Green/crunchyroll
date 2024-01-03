@@ -7,4 +7,7 @@ export default interface Review {
     rating: 1 | 2 | 3 | 4 | 5,
     title: string,
     author: string,
+    likes: number,
+    dislikes: number,
+    submitted: { userId: string, helpful: boolean }[]
 }

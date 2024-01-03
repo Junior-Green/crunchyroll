@@ -10,23 +10,6 @@
             <span class="border-l-zinc-600 text-zinc-400 border-l-0 md:border-l-[0.5px] text-sm pl-0 md:pl-2 ml-0 md:ml-3 mt-3 md:mt-0">{{"\u00A9 Crunchyroll,
                 LLC"}}</span>
         </div>
-        <div dropdown (onShown)="menuDropdownHandler('onShown')" (onHidden)="menuDropdownHandler('onHidden')"
-            container="body" [dropup]="true">
-            <div dropdownToggle [ngClass]="{'bg-zinc-800' : menuDropdownShowing}"
-                class="h-full flex items-center justify-center p-[0.75rem] hover:bg-zinc-800 transition-colors hover:cursor-pointer button">
-                <mat-icon class="text-zinc-300 transition-colors mr-1">arrow_drop_down</mat-icon>
-                <span class="text-zinc-400 text-sm font-medium transition-colors"
-                    [ngClass]="{'text-white' : menuDropdownShowing}">{{selectedLanguage | uppercase}}</span>
-            </div>
-            <ul *dropdownMenu class="dropdown-menu main-dropdown" role="menu">
-                <ng-container *ngFor="let language of languages">
-                    <li role="menuitem" class=" transition-colors">
-                        <a class="dropdown-item py-[10px] text-sm" (click)="changeSelectedLanguage(language)">
-                            {{language}}
-                        </a>
-                    </li>
-                </ng-container>
-            </ul>
-        </div>
+        <cr-dropdown [dropup]="true" [options]="languages"></cr-dropdown>
     </div>
 </div>

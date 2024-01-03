@@ -9,7 +9,7 @@ import * as chroma from 'chroma-js';
   styleUrls: ['./button.component.scss']
 })
 export class ButtonComponent {
-  @Input() label: string = "Click"
+  @Input({required: true}) label: string = "Click"
   @Input() disabled: boolean = false
   @Input() backgroundColor: string = "#000000"
   @Input() labelColor: string = "#FFFFFF"

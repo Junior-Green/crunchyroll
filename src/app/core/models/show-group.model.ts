@@ -1,6 +1,6 @@
 import Show from "./show.model";
 
-export interface ShowGroup {
+export default interface ShowGroup {
     title: string,
     subtitle: string,
     shows: Show[]

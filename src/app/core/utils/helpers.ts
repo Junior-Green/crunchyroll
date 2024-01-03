@@ -47,3 +47,4 @@ export function getRandomNumberBetween(x: number, y: number): number {
 export function roundToDecimal(num: number, precision: number): number {
   return parseFloat(num.toFixed(precision));
 }
+

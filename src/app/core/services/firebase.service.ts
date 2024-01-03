@@ -1,14 +1,15 @@
 
 import { Injectable, OnDestroy } from '@angular/core';
 import { Unsubscribe, User, UserCredential, createUserWithEmailAndPassword, getAuth, signInWithEmailAndPassword } from "firebase/auth";
-import { DocumentReference, Timestamp, collection, doc, getDoc, getDocs, getFirestore, onSnapshot, query, setDoc } from "firebase/firestore"
+import { DocumentReference, Timestamp, arrayRemove, arrayUnion, collection, doc, getDoc, getDocs, getFirestore, onSnapshot, query, setDoc, updateDoc } from "firebase/firestore"
 import { getDownloadURL, getStorage, listAll, ref } from "firebase/storage"
 import { firebaseApp } from 'src/main';
 import Show from '../models/show.model';
 import { environment } from 'src/environments/environment';
 import { convertToSlug } from '../utils/helpers';
 import ShowImages from '../models/show-images.model';
-import { ShowGroup } from '../models/show-group.model';
+import ShowGroup from '../models/show-group.model';
+import Review from '../models/review.model';
 
 @Injectable({
   providedIn: 'root'
@@ -20,6 +21,7 @@ export class FirebaseService implements OnDestroy {
   private firestoreUsersCollectionName = 'users'
   private authenticated: User | null = null;
   private unsub: Unsubscribe;
+  
 
   constructor() {
     this.auth = getAuth(firebaseApp);
@@ -28,6 +30,10 @@ export class FirebaseService implements OnDestroy {
     this.unsub = this.auth.onAuthStateChanged((user) => {
       this.authenticated = user
     })
+  }
+
+  currentUserId(): string | null {
+    return this.authenticated?.uid ?? null
   }
 
   subscribeToAuthState(callback: (isLoggedIn: boolean) => void): Unsubscribe {
@@ -148,7 +154,8 @@ export class FirebaseService implements OnDestroy {
           sub: showData['sub'],
           subtitles: showData['subtitles'],
           genres: showData['genres'],
-          publisher: showData['publisher']
+          publisher: showData['publisher'],
+          reviews: showData['reviews'],
         }
 
         return {
@@ -159,6 +166,24 @@ export class FirebaseService implements OnDestroy {
     } else {
       return Promise.reject("Collection does not exist");
     }
+  }
+
+  async updateFeedback(showId: string, review: Review, helpful: boolean): Promise<void> {
+    const showRef = doc(this.firestore, 'shows', showId)
+
+    updateDoc(showRef, {
+      reviews: arrayUnion({
+        ...review,
+        likes: helpful ? (review.likes + 1) : review.likes,
+        dislikes: helpful ? review.dislikes : (review.dislikes + 1)
+      })
+    }).then((_) => {
+      updateDoc(showRef, {
+        reviews: arrayRemove(review)
+      })
+    })
+
+
   }
 
   async getShowImages(showId: string): Promise<ShowImages> {
@@ -195,7 +220,8 @@ export class FirebaseService implements OnDestroy {
         sub: showData['sub'],
         subtitles: showData['subtitles'],
         genres: showData['genres'],
-        publisher: showData['publisher']
+        publisher: showData['publisher'],
+        reviews: showData['reviews'],
       }
 
       return {
@@ -239,6 +265,7 @@ export class FirebaseService implements OnDestroy {
           sub: showData['sub'],
           subtitles: showData['subtitles'],
           genres: showData['genres'],
+          reviews: showData['reviews'],
           publisher: showData['publisher'],
           imageUrls: await this.getShowImages(ref.id)
         }
@@ -259,7 +286,7 @@ export class FirebaseService implements OnDestroy {
 
   async getLandingAdverts(): Promise<string[]> {
     const advertsRef = ref(this.storage, 'adverts')
- 
+
     return Promise.all(await listAll(advertsRef).then((res) => {
       return res.items.map((advert) => {
         return getDownloadURL(advert)

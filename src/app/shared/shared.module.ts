@@ -16,6 +16,11 @@ import { TranslucentHeaderComponent } from './components/translucent-header/tran
 import { CheckBoxComponent } from './components/check-box/check-box.component';
 import { CarouselModule } from 'ngx-bootstrap/carousel';
 import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
+import { ProgressbarModule } from 'ngx-bootstrap/progressbar';
+import { DropdownComponent } from './components/dropdown/dropdown.component';
+import { FooterNavComponent } from './components/footer-nav/footer-nav.component';
+import { CollapseableComponent } from './components/collapseable/collapseable.component';
+import { RatingModule } from 'ngx-bootstrap/rating'
 
 @NgModule({
   declarations: [
@@ -24,7 +29,10 @@ import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
     ErrorAlertComponent,
     ButtonComponent,
     TranslucentHeaderComponent,
-    CheckBoxComponent
+    CheckBoxComponent,
+    DropdownComponent,
+    FooterNavComponent,
+    CollapseableComponent
   ],
   imports: [
     MatIconModule,
@@ -49,6 +57,11 @@ import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
     CarouselModule,
     TooltipModule,
     NgxSkeletonLoaderModule,
+    ProgressbarModule,
+    DropdownComponent,
+    FooterNavComponent,
+    CollapseableComponent,
+    RatingModule
   ]
 })
 export class SharedModule { }

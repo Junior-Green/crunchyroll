@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ShowGroup } from 'src/app/core/models/show-group.model';
+import ShowGroup from 'src/app/core/models/show-group.model';
 import Show from 'src/app/core/models/show.model';
 import { FirebaseService } from 'src/app/core/services/firebase.service';
 import { getRandomNumberBetween } from 'src/app/core/utils/helpers';
@@ -14,7 +14,7 @@ export class ShowGroupService {
   private advertsPromise: Promise<void>;
   private adverts: string[] = []
   private advertsCache: string[] = []
- 
+
 
   constructor(firebase: FirebaseService) {
     this.showGroupsPromise = firebase.getShowGroups().then((groups) => {

@@ -1,0 +1,62 @@
+<section class="w-full pt-5 flex flex-col">
+    <div class="flex w-full justify-between items-center">
+        <div class="flex items-center">
+            <span class="text-white text-xl border-r-[1px] border-r-zinc-700 pr-3 mr-3">{{show.reviews.length + '
+                Reviews'}}</span>
+            <div class="text-white flex items-center">
+                <span class="text-xl">{{getAverageRating()}}</span>
+                <mat-icon class="mx-1 text-crunchyroll-orange">star</mat-icon>
+                <span class="text-zinc-300 text-sm">{{'(' + show.reviews.length + ')' }}</span>
+            </div>
+        </div>
+        <div class="flex">
+            <cr-dropdown [options]="sortOptions" [icon]="'sort'" (onSelected)="sortHandler($event)"></cr-dropdown>
+            <cr-dropdown class="mr-2" [options]="filterOptions" [icon]="'tune'"
+                (onSelected)="filterHandler($event)"></cr-dropdown>
+        </div>
+    </div>
+    <div *ngIf="!loggedIn"
+        class="w-4/5 my-4 py-4 border-dashed border-white border-[1px] flex flex-col justify-center items-center">
+        <span class="text-white text-xl">Account Required</span>
+        <span class="text-zinc-500 mt-2 font-light">
+            Please <a routerLink="/auth/login"
+                class="text-teal-400 hover:underline cursor-pointer transition-colors hover:text-white">Log
+                In</a>
+            or
+            <a routerLink="/auth/register"
+                class="text-teal-400 hover:underline cursor-pointer transition-colors hover:text-white">Create
+                Account</a>
+            to add review
+        </span>
+    </div>
+    <div *ngIf="loggedIn" class="w-[85%] my-3 p-4 flex items-start bg-zinc-900">
+        <img src="/assets/images/avatar.jpeg" width="60" height="60" class="rounded-full mr-5" alt="profile picture"
+            loading="lazy" />
+        <form class="w-full" #form="ngForm" (ngSubmit)="postReview()">
+            <rating name="rating" [tooltip]="'Rate this ' + this.hoverStarOption + ' stars'" required
+                (onHover)="hoveringOver($event)" [(ngModel)]="reviewForm.rating" style="font-size: 35px;"
+                [ngClass]="{'text-crunchyroll-orange' : reviewForm.rating !== null, 'text-white' : this.reviewForm.rating === null}">
+            </rating>
+            <input placeholder="Add a Title" #title="ngModel" name="title" required
+                class="px-2 text-white w-full h-11 placeholder:font-normal placeholder:text-zinc-400 mb-10 mt-3 bg-black focus:border-white outline-none border-zinc-500 border-[1px]"
+                [(ngModel)]="reviewForm.title" [minlength]="10">
+            <textarea placeholder="Write a Review" #content="ngModel" required [minlength]="100"
+                class="px-2 text-white py-2 w-full placeholder:font-normal placeholder:text-zinc-400 resize-none bg-black focus:border-white outline-none border-zinc-500 border-[1px]"
+                name="content" rows="7" [(ngModel)]="reviewForm.content">
+                </textarea>
+            <div class="flex justify-between items-center mt-2">
+                <span class="text-xs font-light text-white">Reviews are subject to our <a
+                        class="text-teal-400 hover:cursor-pointer transition-colors hover:text-white">guidelines</a>. </span>
+                <cr-button [disabled]="form.invalid ?? false" label="POST" buttonStyle="outline"
+                    [labelColor]="form.invalid ? '#a1a1aa' : '#f47521'"
+                    [backgroundColor]="form.invalid ? '#a1a1aa' : '#f47521'"></cr-button>
+
+            </div>
+        </form>
+    </div>
+    <ng-container *ngFor="let review of reviews">
+        <cr-review (feedbackSubmitted)="recievedFeedback($event)" [review]="review" class="w-[85%]"></cr-review>
+    </ng-container>
+</section>
+<cr-error-alert [success]="true" (onClosed)="closeAlert()" *ngIf="showing"
+    [errorMessage]="'Thanks for the feedback!'"></cr-error-alert>

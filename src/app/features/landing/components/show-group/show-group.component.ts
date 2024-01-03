@@ -2,9 +2,10 @@ import { Component, HostListener } from '@angular/core';
 import Show from 'src/app/core/models/show.model';
 import { randomBoolean } from 'src/app/core/utils/helpers';
 import { ShowGroupService } from './show-group.service';
-import { ShowGroup } from 'src/app/core/models/show-group.model';
+import ShowGroup from 'src/app/core/models/show-group.model';
 import { ShowService } from 'src/app/core/services/show.service';
 import { screenSizes } from 'src/app/core/constants/constants';
+import RatingsDistribution from 'src/app/core/models/ratings-distribution';
 
 @Component({
   selector: 'cr-show-group',
@@ -96,6 +97,6 @@ export class ShowGroupComponent {
   }
 
   calculateShowRating(show: Show): number {
-    return this.showService.calculateShowRating(show)
+    return this.showService.getAverageRating(show)
   }
 }

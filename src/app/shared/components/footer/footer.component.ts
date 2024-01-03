@@ -8,8 +8,6 @@ import { DomSanitizer } from '@angular/platform-browser';
   styleUrls: ['./footer.component.scss']
 })
 export class FooterComponent {
-  menuDropdownShowing: boolean = false;
-  selectedLanguage: string = "English (US)"
 
   @Input() showNav: boolean = true
 
@@ -35,19 +33,4 @@ export class FooterComponent {
       this.domSanitizer.bypassSecurityTrustResourceUrl('/assets/icons/sony-logo.svg')
     );
   }
-
-  menuDropdownHandler(state: 'onShown' | 'onHidden') {
-    if (state === 'onShown') {
-      this.menuDropdownShowing = true
-    }
-    else {
-      this.menuDropdownShowing = false
-    }
-  }
-
-  changeSelectedLanguage(language: string) {
-    this.selectedLanguage = language
-  }
-
-
 }
