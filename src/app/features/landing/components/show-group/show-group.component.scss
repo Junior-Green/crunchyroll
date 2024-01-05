@@ -1,0 +1,64 @@
+.show-group-carousel {
+    ::ng-deep {
+        .carousel-control-prev {
+            justify-content: flex-start !important;
+            padding-left: 0px !important;
+            margin-left: -50px;
+            width: auto !important;
+        }
+
+        .carousel-control-next {
+            justify-content: flex-end !important;
+            padding-right: 0px !important;
+            margin-right: -50px;
+            width: auto !important;
+        }
+
+        .carousel-caption {
+            left: 0%;
+            right: 8%;
+            top: 0%;
+            bottom: 0%;
+            opacity: 0;
+        }
+
+        .slide {
+            .item.active {
+                .carousel-caption:hover {
+                    opacity: 1;
+                }
+            }
+        }
+    }
+}
+
+.star-icon {
+    font-size: 15px;
+    height: auto;
+    width: 15px;
+}
+
+.buttons {
+    mat-icon:hover {
+        filter: brightness(1.10);
+        cursor: pointer;
+    }
+
+    mat-icon {
+        font-size: 30px;
+        height: auto;
+        width: 30px;
+    }
+
+    mat-icon:nth-child(2) {
+        font-size: 25px;
+        height: auto;
+        width: 25px;
+    }
+}
+
+.slide:hover {
+    .heading-container {
+        visibility: hidden
+    }
+}

@@ -1,13 +1,17 @@
 
 import { Injectable, OnDestroy } from '@angular/core';
 import { Unsubscribe, User, UserCredential, createUserWithEmailAndPassword, getAuth, signInWithEmailAndPassword } from "firebase/auth";
-import { DocumentReference, Timestamp, doc, getDoc, getFirestore, onSnapshot, setDoc } from "firebase/firestore"
-import { getDownloadURL, getStorage, ref } from "firebase/storage"
+import { DocumentReference, Timestamp, arrayRemove, arrayUnion, collection, doc, getDoc, getDocs, getFirestore, onSnapshot, query, setDoc, updateDoc } from "firebase/firestore"
+import { getDownloadURL, getStorage, listAll, ref } from "firebase/storage"
 import { firebaseApp } from 'src/main';
 import Show from '../models/show.model';
 import { environment } from 'src/environments/environment';
 import { convertToSlug } from '../utils/helpers';
 import ShowImages from '../models/show-images.model';
+import ShowGroup from '../models/show-group.model';
+import Review from '../models/review.model';
+import ReviewFormModel from '../models/review-form.model';
+import { uuidv4 } from '@firebase/util';
 
 @Injectable({
   providedIn: 'root'
@@ -20,6 +24,7 @@ export class FirebaseService implements OnDestroy {
   private authenticated: User | null = null;
   private unsub: Unsubscribe;
 
+
   constructor() {
     this.auth = getAuth(firebaseApp);
     this.firestore = getFirestore(firebaseApp);
@@ -27,6 +32,10 @@ export class FirebaseService implements OnDestroy {
     this.unsub = this.auth.onAuthStateChanged((user) => {
       this.authenticated = user
     })
+  }
+
+  currentUserId(): string | null {
+    return this.authenticated?.uid ?? null
   }
 
   subscribeToAuthState(callback: (isLoggedIn: boolean) => void): Unsubscribe {
@@ -95,7 +104,7 @@ export class FirebaseService implements OnDestroy {
 
   addShow(show: Show): void {
     if (environment.production) {
-      throw new Error('This method should not be allowed to be invoked in production')
+      throw new Error('This method is not be allowed to be invoked in production build')
     }
 
     setDoc(doc(this.firestore, 'shows', convertToSlug(show.title)), {
@@ -122,6 +131,38 @@ export class FirebaseService implements OnDestroy {
     })
   }
 
+  async postReview(reviewForm: ReviewFormModel, showId: string): Promise<boolean> {
+    const showRef = doc(this.firestore, 'shows', showId)
+
+    if (this.authenticated === null) {
+      return false
+    }
+
+    if (reviewForm.rating === null) {
+      return false
+    }
+
+    const review: Review = {
+      content: reviewForm.content,
+      date: Timestamp.now(),
+      id: uuidv4(),
+      rating: reviewForm.rating,
+      title: reviewForm.title,
+      author: this.authenticated.uid,
+      likes: 0,
+      dislikes: 0,
+      submitted: []
+    }
+
+    return updateDoc(showRef, {
+      reviews: arrayUnion(review)
+    })
+      .then(() => {
+        return true
+      }, () => {
+        return false;
+      })
+  }
   async getShowCollection(collectionId: string): Promise<Show[]> {
     const docRef = doc(this.firestore, "collections", collectionId);
     const docSnap = await getDoc(docRef);
@@ -147,7 +188,8 @@ export class FirebaseService implements OnDestroy {
           sub: showData['sub'],
           subtitles: showData['subtitles'],
           genres: showData['genres'],
-          publisher: showData['publisher']
+          publisher: showData['publisher'],
+          reviews: showData['reviews'],
         }
 
         return {
@@ -158,6 +200,34 @@ export class FirebaseService implements OnDestroy {
     } else {
       return Promise.reject("Collection does not exist");
     }
+  }
+
+  async updateFeedback(showId: string, review: Review, helpful: boolean): Promise<boolean> {
+    if (this.authenticated === null) return false;
+
+    const showRef = doc(this.firestore, 'shows', showId)
+
+    return updateDoc(showRef, {
+      reviews: arrayUnion({
+        ...review,
+        submitted: review.submitted.concat({
+          userId: this.authenticated.uid,
+          helpful: helpful
+        }),
+        likes: helpful ? (review.likes + 1) : review.likes,
+        dislikes: helpful ? review.dislikes : (review.dislikes + 1)
+      })
+    }).then((_) => {
+      return updateDoc(showRef, {
+        reviews: arrayRemove(review)
+      }).then(() => {
+        return true
+      }, () => {
+        return false;
+      })
+    }, () => {
+      return false
+    })
   }
 
   async getShowImages(showId: string): Promise<ShowImages> {
@@ -172,6 +242,32 @@ export class FirebaseService implements OnDestroy {
       },
       logo: logoUrl
     }
+  }
+
+  async getAllShows(): Promise<Show[]> {
+    const shows: Show[] = []
+    const querySnapshot = await getDocs(collection(this.firestore, "shows"));
+    for await (const doc of querySnapshot.docs) {
+      const data = doc.data()
+
+      const show: Show = {
+        showId: doc.id,
+        title: data['title'],
+        audio: data['audio'],
+        description: data['description'],
+        dub: data['dub'],
+        sub: data['sub'],
+        subtitles: data['subtitles'],
+        genres: data['genres'],
+        reviews: data['reviews'],
+        publisher: data['publisher'],
+        imageUrls: await this.getShowImages(doc.id)
+      }
+
+      shows.push(show);
+    }
+    
+    return shows
   }
 
   async getShow(showId: string): Promise<Show> {
@@ -194,7 +290,8 @@ export class FirebaseService implements OnDestroy {
         sub: showData['sub'],
         subtitles: showData['subtitles'],
         genres: showData['genres'],
-        publisher: showData['publisher']
+        publisher: showData['publisher'],
+        reviews: showData['reviews'],
       }
 
       return {
@@ -205,6 +302,67 @@ export class FirebaseService implements OnDestroy {
     } else {
       return Promise.reject("Show does not exist");
     }
+  }
+
+  async getShowGroups(): Promise<ShowGroup[]> {
+    const q = query(collection(this.firestore, "landing-show-groups"))
+    const querySnapshot = await getDocs(q)
+    const showGroups: ShowGroup[] = []
+    const cache: Map<string, Show> = new Map<string, Show>()
+
+    for await (const doc of querySnapshot.docs) {
+      const data = doc.data()
+      const showRefs: DocumentReference[] = data['shows']
+
+      await Promise.all(showRefs.map<Promise<Show>>(async (ref) => {
+        if (cache.has(ref.id)) {
+          return cache.get(ref.id)!
+        }
+
+        const showSnap = await getDoc(ref)
+        const showData = showSnap.data()
+
+        if (showData === undefined) {
+          return Promise.reject('Error retrieving data')
+        }
+
+        const show: Show = {
+          showId: ref.id,
+          title: showData['title'],
+          audio: showData['audio'],
+          description: showData['description'],
+          dub: showData['dub'],
+          sub: showData['sub'],
+          subtitles: showData['subtitles'],
+          genres: showData['genres'],
+          reviews: showData['reviews'],
+          publisher: showData['publisher'],
+          imageUrls: await this.getShowImages(ref.id)
+        }
+        cache.set(ref.id, show)
+        return show
+      })).then((shows) => {
+        showGroups.push({
+          title: data['title'],
+          subtitle: data['subtitle'],
+          shows: shows,
+        })
+      }).catch((err) => {
+        console.log(err)
+      })
+    }
+    return showGroups
+  }
+
+  async getLandingAdverts(): Promise<string[]> {
+    const advertsRef = ref(this.storage, 'adverts')
+
+    return Promise.all(await listAll(advertsRef).then((res) => {
+      return res.items.map((advert) => {
+        return getDownloadURL(advert)
+      })
+    }))
+
   }
 
   ngOnDestroy(): void {

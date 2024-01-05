@@ -1,0 +1,24 @@
+.dropdown-menu.main-dropdown {
+    min-width: 200px;
+    padding-top: 20px;
+
+}
+
+.dropdown-menu>li>a:hover {
+    background-image: none;
+    background-color: rgb(24 24 27);
+    color: white;
+}
+
+.dropdown-menu>li>a {
+    color: rgb(161 161 170)
+}
+
+.dropdown-item {
+    cursor: pointer;
+}
+
+.dropdown-menu {
+    background-color: rgb(39 39 42);
+    border-radius: 0%;
+}

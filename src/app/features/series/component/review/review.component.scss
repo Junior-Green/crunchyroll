@@ -1,0 +1,23 @@
+.star-outline {
+    font-size: 23px;
+    width: 21px;
+    height: auto;
+}
+
+.post-icon {
+    font-size: 27px;
+    width: 27px;
+    height: auto;
+}
+
+.avatar {
+    width: 40px;
+    height: auto;
+}
+
+@media (min-width: 768px) {
+    .avatar {
+        width: 60px;
+        height: auto;
+    }
+}

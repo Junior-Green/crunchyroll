@@ -1,5 +1,6 @@
-<main class="w-full h-full flex flex-col justify-between items-center">
-    <cr-header class="w-full"></cr-header>
+<cr-header></cr-header>
+<main class="w-full h-screen flex md:py-16 py-5 justify-center items-center">
+  
     <form #loginForm="ngForm" (ngSubmit)="login()"
         class="flex flex-col justify-center items-center max-w-lg w-full md:px-0 px-3 relative">
         <img src="/assets/images/log-in-yuzu.png" class="absolute bottom-[-6rem] right-[-9rem] hidden md:block"
@@ -37,7 +38,6 @@
                 class="text-crunchyroll-orange font-semibold transition-colors hover:text-white ml-1">CREATE
                 ONE</a></span>
     </form>
-    <cr-footer [showNav]="true" class="w-full"></cr-footer>
 </main>
-
+<cr-footer [showNav]="true"></cr-footer>
 <cr-error-alert *ngIf="showError" [errorMessage]="errorMessage" (onClosed)="toggleAlert()"></cr-error-alert>

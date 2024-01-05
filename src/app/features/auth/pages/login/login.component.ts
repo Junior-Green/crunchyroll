@@ -1,6 +1,5 @@
-import { AfterViewInit, Component, OnInit, ViewEncapsulation } from '@angular/core';
-import { MatIconRegistry } from '@angular/material/icon';
-import { DomSanitizer, Title } from '@angular/platform-browser';
+import { Component, ViewEncapsulation } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { AuthFormModel } from 'src/app/core/models/auth-form.model';
 import { FirebaseService } from 'src/app/core/services/firebase.service';

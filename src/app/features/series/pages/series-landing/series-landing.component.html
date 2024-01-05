@@ -1,0 +1,104 @@
+<ng-container [ngSwitch]="loading">
+    <div class="w-full h-screen flex items-center justify-center" *ngSwitchCase="true">
+        <mat-progress-spinner mode="indeterminate" diameter="60" strokeWidth="5"></mat-progress-spinner>
+    </div>
+    <ng-container *ngSwitchCase="false">
+        <main *ngIf="showPromise | async as show" class="flex flex-col justify-center items-center">
+            <div class="w-full overflow-hidden h-[480px] md:h-[360px] relative header-banner">
+                <img [src]="show.imageUrls.covers.landscape" class="w-full h-full blur-md relative">
+                <picture>
+                    <source [srcset]="show.imageUrls.covers.landscape" media="(min-width: 768px)" class="banner-image">
+                    <source [srcset]="show.imageUrls.covers.portrait" media="(max-width: 768px)" class="banner-image">
+                    <img [src]="show.imageUrls.covers.landscape" class="banner-image">
+                </picture>
+            </div>
+            <section class="py-5 responsive-padding w-full max-w-[1160px]">
+                <div class="flex w-full items-center justify-between">
+                    <h1 class="text-white text-4xl">{{show.title}}</h1>
+                    <mat-icon class="text-zinc-300 hover:text-white cursor-pointer" [tooltip]="'Share'">share</mat-icon>
+                </div>
+
+                <h2 class="text-zinc-500 text-sm mt-3 mb-4">{{getShowDescriptor(show)}}</h2>
+                <div class="text-sm transition-colors underline-offset-2 flex items-center" dropdown container="body">
+                    <span
+                        class="text-zinc-400 hover:text-zinc-300 border-r-zinc-500 border-r-[1px] pr-2 mr-2 decoration-zinc-300 cursor-pointer hover:underline flex items-center"
+                        dropdownToggle>{{'Average
+                        Rating:
+                        ' + getShowRatingAverage(show)
+                        + '
+                        (' + getReviewCount(show) +
+                        ')'
+                        }}
+                        <mat-icon>
+                            arrow_drop_down
+                        </mat-icon>
+                    </span>
+                    <span
+                        class="text-zinc-400 hover:text-zinc-300 border-r-zinc-500 decoration-zinc-300 cursor-pointer hover:underline"
+                        (click)="scrollToReviews()">{{getReviewCount(show) + ' Reviews'}}</span>
+                    <ul *dropdownMenu class="dropdown-menu main-dropdown" role="menu">
+                        <h1 class="text-zinc-300 text-sm">{{'Average ' + getShowRatingAverage(show) + ' out of 5
+                            stars'}}</h1>
+                        <h2 class="text-zinc-300 text-xs mt-2">{{getReviewCount(show) + ' ratings'}}</h2>
+                        <ng-container
+                            *ngFor="let entry of (getRatingsDistribution(show) | keyvalue).reverse(); let i = index">
+                            <div class="flex mt-3 items-center">
+                                <mat-icon class="text-white">star</mat-icon>
+                                <span class="text-white mx-2">{{entry.key}}</span>
+                                <progressbar class="mr-2" [max]="100" [value]="entry.value">
+                                </progressbar>
+                                <span class="text-white text-left">{{entry.value.toFixed(0) + '%'}}</span>
+                            </div>
+                        </ng-container>
+                    </ul>
+                </div>
+                <div class="flex md:flex-row flex-col mt-3">
+                    <a
+                        class="py-[6px] mb-2 md:mb-0 px-3 watchlist-button border-2 border-crunchyroll-orange flex justify-center items-center mr-2">
+                        <mat-icon class="text-crunchyroll-orange">bookmark</mat-icon>
+                        <span class="text-crunchyroll-orange text-sm font-medium">ADD TO WATCHLIST</span>
+                    </a>
+                    <a
+                        class="py-[6px] px-3 crunchylist-button border-none transition-colors hover:bg-zinc-800 flex justify-center items-center">
+                        <mat-icon class="text-zinc-500 transition-colors">add</mat-icon>
+                        <span class="text-zinc-500 text-sm font-medium transition-colors">ADD TO CRUNCHYLIST</span>
+                    </a>
+                </div>
+                <cr-collapseable>
+                    <div>
+                        <p class="text-white my-3">{{show.description}}</p>
+                        <ul class="flex mb-4">
+                            <li *ngFor="let genre of show.genres"
+                                class="text-sm text-zinc-400 mr-2 py-1 px-2 bg-cyan-950">
+                                {{genre}}</li>
+                        </ul>
+                        <div class="w-full border-b-[1px] border-zinc-700 flex justify-between pb-2 mb-2">
+                            <span class="text-white">Publisher</span>
+                            <span class="text-white text-right mt-3 text-sm">{{show.publisher}}</span>
+                        </div>
+                        <div class="w-full border-b-[1px] border-zinc-700 flex justify-between pb-2 mb-2">
+                            <span class="text-white">Audio</span>
+                            <span class="text-white text-right mt-3 text-sm">{{show.audio.toString().replaceAll(',', ',
+                                ')}}</span>
+                        </div>
+                        <div class="w-full border-b-[1px] border-zinc-700 flex justify-between pb-2 mb-2">
+                            <span class="text-white">Subtitles</span>
+                            <span
+                                class="text-white text-right mt-3 text-sm w-3/5">{{show.subtitles.toString().replaceAll(',',
+                                ',
+                                ')}}</span>
+                        </div>
+                    </div>
+                </cr-collapseable>
+            </section>
+            <div #reviews class="mx-auto w-full max-w-[1160px] responsive-padding">
+                <cr-reviews class="my-8" [show]="show"></cr-reviews>
+            </div>
+            <cr-more-like-carousel class="responsive-padding my-8" [show]="show"></cr-more-like-carousel>
+        </main>
+    </ng-container>
+    <footer class="w-full flex flex-col bg-gradient-to-t from-cyan-950 to-black mt-10 justify-center items-center">
+        <cr-footer-nav class="w-full max-w-4xl px-5 mb-5"></cr-footer-nav>
+        <cr-footer class="w-full" [showNav]="false" />
+    </footer>
+</ng-container>

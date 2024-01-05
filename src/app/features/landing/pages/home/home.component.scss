@@ -1,0 +1,15 @@
+.show-groups-container {
+    margin-top: 1rem;
+}
+
+@media (min-width: 768px) {
+    .show-groups-container {
+        margin-top: -8rem;
+    }
+}
+
+::ng-deep {
+    .mat-mdc-progress-spinner {
+        --mdc-circular-progress-active-indicator-color: #F47521 !important;
+    }
+}

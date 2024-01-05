@@ -12,6 +12,6 @@ export default interface Show {
     subtitles: string[],
     genres: ("Action" | "Adventure" | "Comedy" | "Drama" | "Fantasy" | "Music" | "Romance" | "Sci-Fi" | "Seinen" | "Shojo" | "Shonen" | "Slice of life" | "Sports" | "Supernatural" | "Thriller")[],
     publisher: string,
-    reviews?: Review[],
+    reviews: Review[],
     imageUrls: ShowImages
 }

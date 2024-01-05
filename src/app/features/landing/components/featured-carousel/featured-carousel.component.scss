@@ -1,3 +1,12 @@
+.clickable:hover {
+    cursor: pointer;
+    filter: brightness(1.15);
+}
+
+::ng-deep .carousel-indicators {
+    display: none !important;
+}
+
 .image-container {
     position: relative;
     overflow: hidden;
@@ -71,6 +80,10 @@
 }
 
 @media (max-width: 768px) {
+    ::ng-deep .carousel-indicators {
+        display: flex !important;
+    }
+
     .image-container {
         width: auto;
         height: 100%;

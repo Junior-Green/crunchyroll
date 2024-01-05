@@ -9,6 +9,7 @@ export class ErrorAlertComponent implements OnInit {
 
   @Output() onClosed = new EventEmitter<boolean>();
   @Input() errorMessage: string = "Something went wrong..."
+  @Input() success: boolean = false
 
   constructor() {
 
