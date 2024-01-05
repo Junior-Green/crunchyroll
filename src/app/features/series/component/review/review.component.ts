@@ -36,8 +36,9 @@ export class ReviewComponent implements OnInit {
       this.domSanitizer.bypassSecurityTrustResourceUrl('/assets/icons/star.svg')
     );
 
+    this.helpful = undefined;
     this.review.submitted.forEach(({ userId, helpful }) => {
-      if (userId === this.userId) {    
+      if (userId === this.userId) {
         this.helpful = helpful
       }
     })

@@ -56,6 +56,7 @@ export class ShowService {
   getAverageRating(show: Show): number {
     if (show.reviews.length === 0) return 0
 
+    
     return roundToDecimal(show.reviews.reduce((prev, curr) => {
       return prev + curr.rating
     }, 0) / show.reviews.length, 1)

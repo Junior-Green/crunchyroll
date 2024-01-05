@@ -10,6 +10,8 @@ import { convertToSlug } from '../utils/helpers';
 import ShowImages from '../models/show-images.model';
 import ShowGroup from '../models/show-group.model';
 import Review from '../models/review.model';
+import ReviewFormModel from '../models/review-form.model';
+import { uuidv4 } from '@firebase/util';
 
 @Injectable({
   providedIn: 'root'
@@ -21,7 +23,7 @@ export class FirebaseService implements OnDestroy {
   private firestoreUsersCollectionName = 'users'
   private authenticated: User | null = null;
   private unsub: Unsubscribe;
-  
+
 
   constructor() {
     this.auth = getAuth(firebaseApp);
@@ -129,6 +131,38 @@ export class FirebaseService implements OnDestroy {
     })
   }
 
+  async postReview(reviewForm: ReviewFormModel, showId: string): Promise<boolean> {
+    const showRef = doc(this.firestore, 'shows', showId)
+
+    if (this.authenticated === null) {
+      return false
+    }
+
+    if (reviewForm.rating === null) {
+      return false
+    }
+
+    const review: Review = {
+      content: reviewForm.content,
+      date: Timestamp.now(),
+      id: uuidv4(),
+      rating: reviewForm.rating,
+      title: reviewForm.title,
+      author: this.authenticated.uid,
+      likes: 0,
+      dislikes: 0,
+      submitted: []
+    }
+
+    return updateDoc(showRef, {
+      reviews: arrayUnion(review)
+    })
+      .then(() => {
+        return true
+      }, () => {
+        return false;
+      })
+  }
   async getShowCollection(collectionId: string): Promise<Show[]> {
     const docRef = doc(this.firestore, "collections", collectionId);
     const docSnap = await getDoc(docRef);
@@ -168,22 +202,32 @@ export class FirebaseService implements OnDestroy {
     }
   }
 
-  async updateFeedback(showId: string, review: Review, helpful: boolean): Promise<void> {
+  async updateFeedback(showId: string, review: Review, helpful: boolean): Promise<boolean> {
+    if (this.authenticated === null) return false;
+
     const showRef = doc(this.firestore, 'shows', showId)
 
-    updateDoc(showRef, {
+    return updateDoc(showRef, {
       reviews: arrayUnion({
         ...review,
+        submitted: review.submitted.concat({
+          userId: this.authenticated.uid,
+          helpful: helpful
+        }),
         likes: helpful ? (review.likes + 1) : review.likes,
         dislikes: helpful ? review.dislikes : (review.dislikes + 1)
       })
     }).then((_) => {
-      updateDoc(showRef, {
+      return updateDoc(showRef, {
         reviews: arrayRemove(review)
+      }).then(() => {
+        return true
+      }, () => {
+        return false;
       })
+    }, () => {
+      return false
     })
-
-
   }
 
   async getShowImages(showId: string): Promise<ShowImages> {
@@ -198,6 +242,32 @@ export class FirebaseService implements OnDestroy {
       },
       logo: logoUrl
     }
+  }
+
+  async getAllShows(): Promise<Show[]> {
+    const shows: Show[] = []
+    const querySnapshot = await getDocs(collection(this.firestore, "shows"));
+    for await (const doc of querySnapshot.docs) {
+      const data = doc.data()
+
+      const show: Show = {
+        showId: doc.id,
+        title: data['title'],
+        audio: data['audio'],
+        description: data['description'],
+        dub: data['dub'],
+        sub: data['sub'],
+        subtitles: data['subtitles'],
+        genres: data['genres'],
+        reviews: data['reviews'],
+        publisher: data['publisher'],
+        imageUrls: await this.getShowImages(doc.id)
+      }
+
+      shows.push(show);
+    }
+    
+    return shows
   }
 
   async getShow(showId: string): Promise<Show> {

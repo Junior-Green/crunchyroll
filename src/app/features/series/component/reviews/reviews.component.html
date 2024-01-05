@@ -10,13 +10,13 @@
             </div>
         </div>
         <div class="flex">
-            <cr-dropdown [options]="sortOptions" [icon]="'sort'" (onSelected)="sortHandler($event)"></cr-dropdown>
-            <cr-dropdown class="mr-2" [options]="filterOptions" [icon]="'tune'"
+            <cr-dropdown [options]="getSortOptions()" [icon]="'sort'" (onSelected)="sortHandler($event)"></cr-dropdown>
+            <cr-dropdown class="mr-2" [options]="getFilterOptions()" [icon]="'tune'"
                 (onSelected)="filterHandler($event)"></cr-dropdown>
         </div>
     </div>
     <div *ngIf="!loggedIn"
-        class="w-4/5 my-4 py-4 border-dashed border-white border-[1px] flex flex-col justify-center items-center">
+        class="w-full md:w-4/5 my-4 py-4 border-dashed border-white border-[1px] flex flex-col justify-center items-center">
         <span class="text-white text-xl">Account Required</span>
         <span class="text-zinc-500 mt-2 font-light">
             Please <a routerLink="/auth/login"
@@ -29,24 +29,43 @@
             to add review
         </span>
     </div>
-    <div *ngIf="loggedIn" class="w-[85%] my-3 p-4 flex items-start bg-zinc-900">
-        <img src="/assets/images/avatar.jpeg" width="60" height="60" class="rounded-full mr-5" alt="profile picture"
-            loading="lazy" />
+    <div *ngIf="loggedIn" class="w-full md:w-[85%] my-3 p-4 flex items-start bg-zinc-900">
+        <img src="/assets/images/avatar.jpeg" class="avatar rounded-full mr-5" alt="profile picture" loading="lazy" />
         <form class="w-full" #form="ngForm" (ngSubmit)="postReview()">
-            <rating name="rating" [tooltip]="'Rate this ' + this.hoverStarOption + ' stars'" required
-                (onHover)="hoveringOver($event)" [(ngModel)]="reviewForm.rating" style="font-size: 35px;"
-                [ngClass]="{'text-crunchyroll-orange' : reviewForm.rating !== null, 'text-white' : this.reviewForm.rating === null}">
-            </rating>
-            <input placeholder="Add a Title" #title="ngModel" name="title" required
-                class="px-2 text-white w-full h-11 placeholder:font-normal placeholder:text-zinc-400 mb-10 mt-3 bg-black focus:border-white outline-none border-zinc-500 border-[1px]"
-                [(ngModel)]="reviewForm.title" [minlength]="10">
-            <textarea placeholder="Write a Review" #content="ngModel" required [minlength]="100"
-                class="px-2 text-white py-2 w-full placeholder:font-normal placeholder:text-zinc-400 resize-none bg-black focus:border-white outline-none border-zinc-500 border-[1px]"
-                name="content" rows="7" [(ngModel)]="reviewForm.content">
+            <div class="flex items-center">
+                <rating #rating="ngModel" name="rating" [tooltip]="'Rate this ' + this.hoverStarOption + ' stars'"
+                    required (onHover)="hoveringOver($event)" [(ngModel)]="reviewForm.rating" style="font-size: 35px;"
+                    [ngClass]="{'text-crunchyroll-orange' : rating.dirty, 'text-white' : rating.pristine}">
+                </rating>
+                <span class="text-zinc-400 text-xs ml-3" *ngIf="rating.pristine">required</span>
+            </div>
+
+
+            <div class="flex flex-col w-full items-end mb-4 ">
+                <input placeholder="Add a Title" #title="ngModel" name="title" required
+                    class="px-2 text-white w-full h-11 placeholder:font-normal placeholder:text-zinc-400 mt-3 bg-black focus:border-white outline-none border-zinc-500 border-[1px]"
+                    [(ngModel)]="reviewForm.title" [minlength]="10">
+                <span *ngIf="title.errors?.['minlength'] || reviewForm.title.length === 0"
+                    class="text-xs text-zinc-400 mt-1">
+                    10 characters minimum
+                </span>
+            </div>
+
+            <div class="flex flex-col w-full items-end">
+                <textarea placeholder="Write a Review" #content="ngModel" required [minlength]="100"
+                    class="px-2 text-white py-2 w-full placeholder:font-normal placeholder:text-zinc-400 resize-none bg-black focus:border-white outline-none border-zinc-500 border-[1px]"
+                    name="content" rows="7" [(ngModel)]="reviewForm.content">
                 </textarea>
-            <div class="flex justify-between items-center mt-2">
+                <span *ngIf="content.errors?.['minlength'] || reviewForm.content.length === 0"
+                    class="text-xs text-zinc-400 mt-1">
+                    100 characters minimum
+                </span>
+            </div>
+
+            <div class="flex justify-between items-center mt-4">
                 <span class="text-xs font-light text-white">Reviews are subject to our <a
-                        class="text-teal-400 hover:cursor-pointer transition-colors hover:text-white">guidelines</a>. </span>
+                        class="text-teal-400 hover:cursor-pointer transition-colors hover:text-white">guidelines</a>.
+                </span>
                 <cr-button [disabled]="form.invalid ?? false" label="POST" buttonStyle="outline"
                     [labelColor]="form.invalid ? '#a1a1aa' : '#f47521'"
                     [backgroundColor]="form.invalid ? '#a1a1aa' : '#f47521'"></cr-button>
@@ -55,8 +74,9 @@
         </form>
     </div>
     <ng-container *ngFor="let review of reviews">
-        <cr-review (feedbackSubmitted)="recievedFeedback($event)" [review]="review" class="w-[85%]"></cr-review>
+        <cr-review (feedbackSubmitted)="recievedFeedback($event)" [review]="review"
+            class="w-full md:w-[85%]"></cr-review>
     </ng-container>
 </section>
-<cr-error-alert [success]="true" (onClosed)="closeAlert()" *ngIf="showing"
-    [errorMessage]="'Thanks for the feedback!'"></cr-error-alert>
+<cr-error-alert [success]="!alertError" (onClosed)="closeAlert()" *ngIf="alertShowing"
+    [errorMessage]="alertMessage"></cr-error-alert>

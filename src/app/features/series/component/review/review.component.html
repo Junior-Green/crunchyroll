@@ -1,6 +1,5 @@
 <div class="flex items-start my-3 w-full">
-    <img src="/assets/images/avatar.jpeg" width="60" height="60" class="rounded-full" alt="profile picture"
-        loading="lazy" />
+    <img src="/assets/images/avatar.jpeg" class="rounded-full avatar" alt="profile picture" loading="lazy" />
     <div class="w-full flex flex-col ml-5">
         <span class="text-zinc-400 text-sm">{{formatFirebaseTimestamp(review.date)}}</span>
         <div class="mt-3">
@@ -21,11 +20,11 @@
                 {{review.likes + " out of " + (review.likes + review.dislikes) + " people found this helpful. Was this
                 review helpful to you?"}}
                 <span
-                    [ngClass]="{'text-white' : helpful, 'text-zinc-400' : !helpful, 'pointer-events-none cursor-default' : helpful !== undefined}"
+                    [ngClass]="{'text-white' : helpful, 'text-zinc-400' : helpful === false, 'pointer-events-none cursor-default' : helpful !== undefined}"
                     (click)="isHelpful(true)"
                     class="border-r-zinc-500 border-r-[1px] pr-2 mx-2 text-teal-400 cursor-pointer transition-colors hover:text-white font-medium">YES</span>
                 <span (click)="isHelpful(false)"
-                    [ngClass]="{'text-white' : !helpful, 'text-zinc-400' : helpful, 'pointer-events-none cursor-default' : helpful !== undefined}"
+                    [ngClass]="{'text-white' : helpful === false, 'text-zinc-400' : helpful, 'pointer-events-none cursor-default' : helpful !== undefined}"
                     class="text-teal-400 cursor-pointer transition-colors hover:text-white font-medium">NO</span>
             </span>
             <div class="text-zinc-400">

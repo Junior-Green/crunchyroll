@@ -8,14 +8,12 @@ import { ReviewsComponent } from './component/reviews/reviews.component';
 import { ReviewComponent } from './component/review/review.component';
 import { MoreLikeCarouselComponent } from './component/more-like-carousel/more-like-carousel.component';
 import { FormsModule } from '@angular/forms';
-
-
 @NgModule({
   declarations: [
     SeriesLandingComponent,
     ReviewsComponent,
     ReviewComponent,
-    MoreLikeCarouselComponent
+    MoreLikeCarouselComponent,
   ],
   imports: [
     CommonModule,

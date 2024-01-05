@@ -18,9 +18,11 @@ export class AppComponent implements OnDestroy {
   constructor(private router: Router) {
     this.urlSubscription = this.router.events.subscribe(event => {
       if (event instanceof NavigationEnd) {
+
         this.renderNavbar = this.renderNavbarRoutes.some((regex) => {
           const res = event.url.match(regex)
-          if(res === null) return false
+
+          if (res === null) return false
           else return res.length !== 0
         })
       }

@@ -1,0 +1,11 @@
+.avatar {
+    width: 40px;
+    height: auto;
+}
+
+@media (min-width: 768px) {
+    .avatar {
+        width: 60px;
+        height: auto;
+    }
+}

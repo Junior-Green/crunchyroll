@@ -3,7 +3,7 @@
         <mat-progress-spinner mode="indeterminate" diameter="60" strokeWidth="5"></mat-progress-spinner>
     </div>
     <ng-container *ngSwitchCase="false">
-        <main *ngIf="showPromise | async as show" class="flex flex-col">
+        <main *ngIf="showPromise | async as show" class="flex flex-col justify-center items-center">
             <div class="w-full overflow-hidden h-[480px] md:h-[360px] relative header-banner">
                 <img [src]="show.imageUrls.covers.landscape" class="w-full h-full blur-md relative">
                 <picture>
@@ -12,7 +12,7 @@
                     <img [src]="show.imageUrls.covers.landscape" class="banner-image">
                 </picture>
             </div>
-            <section class="p-5 mx-auto max-w-[1160px]">
+            <section class="py-5 responsive-padding w-full max-w-[1160px]">
                 <div class="flex w-full items-center justify-between">
                     <h1 class="text-white text-4xl">{{show.title}}</h1>
                     <mat-icon class="text-zinc-300 hover:text-white cursor-pointer" [tooltip]="'Share'">share</mat-icon>
@@ -52,9 +52,9 @@
                         </ng-container>
                     </ul>
                 </div>
-                <div class="flex mt-3">
+                <div class="flex md:flex-row flex-col mt-3">
                     <a
-                        class="py-[6px] px-3 watchlist-button border-2 border-crunchyroll-orange flex justify-center items-center mr-2">
+                        class="py-[6px] mb-2 md:mb-0 px-3 watchlist-button border-2 border-crunchyroll-orange flex justify-center items-center mr-2">
                         <mat-icon class="text-crunchyroll-orange">bookmark</mat-icon>
                         <span class="text-crunchyroll-orange text-sm font-medium">ADD TO WATCHLIST</span>
                     </a>
@@ -91,9 +91,10 @@
                     </div>
                 </cr-collapseable>
             </section>
-            <div #reviews class="mx-auto max-w-[1160px] px-5">
-                <cr-reviews [show]="show"></cr-reviews>
+            <div #reviews class="mx-auto w-full max-w-[1160px] responsive-padding">
+                <cr-reviews class="my-8" [show]="show"></cr-reviews>
             </div>
+            <cr-more-like-carousel class="responsive-padding my-8" [show]="show"></cr-more-like-carousel>
         </main>
     </ng-container>
     <footer class="w-full flex flex-col bg-gradient-to-t from-cyan-950 to-black mt-10 justify-center items-center">

@@ -10,7 +10,7 @@ const routes: Routes = [
   },
   {
     path: ":id",
-    pathMatch: "prefix",
+    pathMatch: "full",
     component: SeriesLandingComponent
   },
   {
