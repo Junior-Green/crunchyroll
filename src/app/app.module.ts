@@ -7,6 +7,7 @@ import { LandingModule } from './features/landing/landing.module';
 import { AppComponent } from './app.component';
 import { ErrorModule } from './features/error/error.module';
 import { FormsModule } from '@angular/forms';
+import { LocationStrategy, HashLocationStrategy } from '@angular/common';
 @NgModule({
   declarations: [
     AppComponent
